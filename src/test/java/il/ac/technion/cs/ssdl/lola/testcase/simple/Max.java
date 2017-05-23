@@ -74,7 +74,8 @@ public class Max {
 	@Test
 	public void max() throws IOException {
 		auxz.runStringTest(
-				"" + "##Find(NoCommasExpression)\n" //
+				"" //
+						+ "##Find(NoCommasExpression)\n" //
 						+ " ##Match ##Any ##exceptFor ##Any, ##Any\n" //
 						+ "##Find(Expression)\n" //
 						+ " ##NoCommasExpression\n" // TODO: no `(#Any)` option
