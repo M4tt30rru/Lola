@@ -27,6 +27,7 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.HostToken;
 import il.ac.technion.cs.ssdl.lola.parser.builders.TriviaToken;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.Tokenizer;
+import il.ac.technion.cs.ssdl.lola.util.auxz;
 /**
  * Unit tests for {@link Parser}
  * 
@@ -55,7 +56,7 @@ public class ParserTest {
 	public void test$Literal() throws IOException {
 		final Reader stream = new StringReader("##Find ##Literal(lit) ##replace 7\n \"omg\"");
 		parser = new Parser(stream);
-		aux.assertTEquals("7", aux.list2string(parser.parse()));
+		auxz.assertTEquals("7", auxz.list2string(parser.parse()));
 	}
 
 	@Test
@@ -63,13 +64,13 @@ public class ParserTest {
 		final Reader stream = new StringReader(
 				"##Find ##OneOrMore ##Literal(lit)\n\t; ##replace ##ForEach(lits) ##(_)7\n \"omg\" \"ooo\";");
 		parser = new Parser(stream);
-		aux.assertTEquals("\"omg\"7 \"ooo\"7", aux.list2string(parser.parse()));
+		auxz.assertTEquals("\"omg\"7 \"ooo\"7", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testAnchor() {
 		try {
-			aux.runStringTest("##Find #anchored b #to\n\t##anchor #anchored\n#anchored 77");
+			auxz.runStringTest("##Find #anchored b #to\n\t##anchor #anchored\n#anchored 77");
 			fail("RuntimeError wasn't thrown!");
 		} catch (final RuntimeException e) {
 			assertEquals("Anchor Error: while matching to [#anchored]", e.getMessage());
@@ -79,11 +80,11 @@ public class ParserTest {
 	@Test
 	public void testAnchoredVisitor() {
 		try {
-			aux.runStringTest("##Import nPatterns.rangeBasedCase\n #Case x #of 1-7 #then 8 #then",
+			auxz.runStringTest("##Import nPatterns.rangeBasedCase\n #Case x #of 1-7 #then 8 #then",
 					"#Case x #of 1-7 # then 8 #then");
 			fail("RuntimeError wasn't thrown!");
 		} catch (final RuntimeException e) {
-			aux.assertTEquals("Anchor Error: while matching to [#Case x #of 1-7 # then 8 #then]", e.getMessage());
+			auxz.assertTEquals("Anchor Error: while matching to [#Case x #of 1-7 # then 8 #then]", e.getMessage());
 		}
 	}
 
@@ -114,38 +115,38 @@ public class ParserTest {
 
 	@Test
 	public void testCaseOfRangeThen1() {
-		aux.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
+		auxz.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
 				+ "##Find  #Case ##Identifier(c) ##Sequence(option) #of ##Range(r) #then ##Literal(exp) #otherwise ##Literal(oexp) #done; ##replace ##(option.r.begin)*##(option.r.end)\n"
 				+ "##example int kind= #Case c #of 'a'-'z' #then 1 #otherwise 2 #done; ##resultsIn int kind= 'a'*'z'");
-		aux.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
+		auxz.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
 				+ "##Find  #Case ##Identifier(c) ##Sequence(option) #of ##Range(r) #then ##Literal(exp) #otherwise ##Literal(oexp) #done; ##replace ##(option.r.begin)*##(option.r.end)\n"
 				+ "##example int kind= #Case c #of '0'-'9' #then 1 #otherwise 2 #done; ##resultsIn int kind= '0'*'9'");
 	}
 
 	@Test
 	public void testCharIsLiteral() {
-		aux.runStringTest("##Find ##Literal(lit) ##replace replaced\n##example 'a' 'b'\n##resultsIn replaced replaced");
+		auxz.runStringTest("##Find ##Literal(lit) ##replace replaced\n##example 'a' 'b'\n##resultsIn replaced replaced");
 	}
 
 	@Test
 	public void testFindAppend() throws IOException {
 		final Reader stream = new StringReader("##Find 1 ##append 3\n" + "2 1 1");
 		parser = new Parser(stream);
-		assertEquals("2 1 3 1 3", aux.list2string(parser.parse()));
+		assertEquals("2 1 3 1 3", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testFindDelete() throws IOException {
 		final Reader stream = new StringReader("##Find 1\n##delete \n 1 2 1");
 		parser = new Parser(stream);
-		assertEquals(" 2 ", aux.list2string(parser.parse()));
+		assertEquals(" 2 ", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testFindPrepend() throws IOException {
 		final Reader stream = new StringReader("##Find 1 ##prepend 3\n" + "2 1 1");
 		parser = new Parser(stream);
-		aux.assertTEquals("2 31 31", aux.list2string(parser.parse()));
+		auxz.assertTEquals("2 31 31", auxz.list2string(parser.parse()));
 	}
 
 	@Test
@@ -162,14 +163,14 @@ public class ParserTest {
 	public void testFindReplaceReplacement() throws IOException {
 		final Reader stream = new StringReader("##Find 2 ##replace 3\n" + "2 2 2");
 		parser = new Parser(stream);
-		assertEquals(" 3  3  3", aux.list2string(parser.parse()));
+		assertEquals(" 3  3  3", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testFindReplaceReplacementTwoFinds() throws IOException {
 		final Reader stream = new StringReader("##Find 1 ##replace 3\n" + "##Find 2 ##replace 4\n" + "2 1 2");
 		parser = new Parser(stream);
-		aux.assertTEquals("4 3 4", aux.list2string(parser.parse()));
+		auxz.assertTEquals("4 3 4", auxz.list2string(parser.parse()));
 	}
 
 	@Ignore
@@ -178,7 +179,7 @@ public class ParserTest {
 		try (final Reader stream = new FileReader(
 				new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/fluentList.lola"))) {
 			parser = new Parser(stream);
-			aux.assertTEquals("", aux.list2string(parser.parse()));
+			auxz.assertTEquals("", auxz.list2string(parser.parse()));
 		}
 	}
 
@@ -201,21 +202,21 @@ public class ParserTest {
 	public void testForEachGenration() throws IOException {
 		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) \n4");
 		parser = new Parser(stream);
-		aux.assertTEquals(" 1  2 3 ", aux.list2string(parser.parse()));
+		auxz.assertTEquals(" 1  2 3 ", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testForEachGenrationWithIfNone() throws IOException {
 		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([]) ##(_) ##ifNone 8\n4");
 		parser = new Parser(stream);
-		aux.assertTEquals("  8", aux.list2string(parser.parse()));
+		auxz.assertTEquals("  8", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testForEachGenrationWithSeparator() throws IOException {
 		final Reader stream = new StringReader("##Find 4 ##replace ##ForEach([1,2,3]) ##(_) ##separator ,\n4");
 		parser = new Parser(stream);
-		aux.assertTEquals("  1 , 2 , 3", aux.list2string(parser.parse()));
+		auxz.assertTEquals("  1 , 2 , 3", auxz.list2string(parser.parse()));
 	}
 
 	@Test
@@ -290,21 +291,21 @@ public class ParserTest {
 	public void testIfElseExecution1() throws IOException {
 		final Reader stream = new StringReader("##If(3 + 3 == 6) 6 ##else 7\n4 2");
 		parser = new Parser(stream);
-		aux.assertTEquals(" 6 4 2", aux.list2string(parser.parse()));
+		auxz.assertTEquals(" 6 4 2", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testIfElseExecution2() throws IOException {
 		final Reader stream = new StringReader("##If(3 + 2 == 6) 6 ##else 7\n4 2");
 		parser = new Parser(stream);
-		aux.assertTEquals(" 7\n4 2", aux.list2string(parser.parse()));
+		auxz.assertTEquals(" 7\n4 2", auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testIfElseExecution3() throws IOException {
 		final Reader stream = new StringReader("##If(3 + 2 == 6) 6 ##elseIf(7 == 9) 7 ##else 2\n4 2");
 		parser = new Parser(stream);
-		aux.assertTEquals(" 2\n4 2", aux.list2string(parser.parse()));
+		auxz.assertTEquals(" 2\n4 2", auxz.list2string(parser.parse()));
 	}
 
 	@Test
@@ -397,7 +398,7 @@ public class ParserTest {
 	public void testLibs() {
 		for (final File ¢ : FileUtils.listFiles(new File("./lola_libs"), new RegexFileFilter(".*\\.lola"),
 				DirectoryFileFilter.DIRECTORY))
-			aux.runFileTest(¢);
+			auxz.runFileTest(¢);
 	}
 
 	@Test
@@ -417,28 +418,28 @@ public class ParserTest {
 
 	@Test
 	public void testNullConditionalMemberAccess() throws IOException {
-		aux.runLibTest("operators/optionalSign");
+		auxz.runLibTest("operators/optionalSign");
 	}
 
 	@Test
 	public void testOneOrMoreRanges() {
-		aux.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
+		auxz.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
 				+ "##Find ##OneOrMore ##Sequence(option) ##Range(r) ##replace ##ForEach(options) ##(_.r.begin)"
 				+ "##example 'a'-'b' 'c'-'d' ##resultsIn 'a' 'c'");
 	}
 
 	@Test
 	public void testOneOrMoreRangesOpenerCloser() {
-		aux.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
+		auxz.runStringTest("##Find(Range) ##Literal(begin)-##Literal(end)\n"
 				+ "##Find ##OneOrMore ##Range(r) ##opener d ##closer d ##replace ##ForEach(rs) ##(_.begin)"
 				+ "\n##example d 'a'-'b'  'c'-'d' d ##resultsIn 'a' 'c'");
 	}
 
 	@Test
 	public void testRange() {
-		aux.runStringTest(
+		auxz.runStringTest(
 				"##Find(Range) ##Literal(begin)-##Literal(end) ##replace ##(begin)*##(end)\n##example 'a'-'b'\n##resultsIn 'a'*'b'");
-		aux.runStringTest(
+		auxz.runStringTest(
 				"##Find(Range) ##Literal(begin)-##Literal(end) ##replace ##(begin)*##(end)\n##example 1-7\n##resultsIn 1*7");
 	}
 
@@ -446,7 +447,7 @@ public class ParserTest {
 	public void testRun() throws IOException {
 		final Reader stream = new StringReader("##Find 1 ##run{if 'x' not in locals():\n\t x = 0\nelse:\n\tx +=1}\n1 1 1");
 		parser = new Parser(stream);
-		aux.assertListEquals(parser.parse(), new ArrayList<>(Arrays.asList(new String[]{"1", " ", "1", " ", "1"})));
+		auxz.assertListEquals(parser.parse(), new ArrayList<>(Arrays.asList(new String[]{"1", " ", "1", " ", "1"})));
 	}
 
 	@Test
@@ -475,17 +476,17 @@ public class ParserTest {
 
 	@Test
 	public void testSimpleExample() throws IOException {
-		aux.runLibTest("examples/SimpleExample");
+		auxz.runLibTest("examples/SimpleExample");
 	}
 
 	@Test
 	public void testSquared() throws IOException {
-		aux.runLibTest("examples/squared");
+		auxz.runLibTest("examples/squared");
 	}
 
 	@Test
 	public void testSquared0() {
-		aux.runStringTest("##Find squared ##Literal(f)\n	##replace ##(f * f) \ndouble sixteen = squared squared 2.0;",
+		auxz.runStringTest("##Find squared ##Literal(f)\n	##replace ##(f * f)\ndouble sixteen = squared squared 2.0;",
 				"double sixteen = 16.0;");
 	}
 
@@ -493,96 +494,35 @@ public class ParserTest {
 	public void testStritch() throws IOException {
 		final Reader stream = new FileReader(new File("./lola_libs/examples/stritch.lola"));
 		parser = new Parser(stream);
-		aux.assertTEquals("if(str.equals(\"omg\")){ print(7);} if(str.equals(\"ooo\")){ print(8);}",
-				aux.list2string(parser.parse()));
+		auxz.assertTEquals("if(str.equals(\"omg\")){ print(7);} if(str.equals(\"ooo\")){ print(8);}",
+				auxz.list2string(parser.parse()));
 	}
 
 	@Test
 	public void testTwoSeparatedAny() {
-		aux.runStringTest("##Find ##Any b c ##Any d\n ##replace \n7 b c 7 d", "");
+		auxz.runStringTest("##Find ##Any b c ##Any d\n ##replace \n7 b c 7 d", "");
 	}
 
 	@Test
 	public void testUnbalancedAnyMatchesEverything() throws IOException {
-		aux.runStringTest(
+		auxz.runStringTest(
 				"##Find 1 ##Unbalanced ##Any 2 ##replace replaced\n##example 1(this)2 1((not this)2 1 this 2\n##resultsIn replaced replaced replaced");
 	}
 
 	@Test
 	public void testUserDefinedFind() throws IOException {
-		aux.runStringTest("##Find(Lol) {##OneOrMore lol\n\t} \n##Find ##Lol ##replace hah\n{lol lol lol}", "hah");
+		auxz.runStringTest("##Find(Lol) {##OneOrMore lol\n\t} \n##Find ##Lol ##replace hah\n{lol lol lol}", "hah");
 	}
 
 	@Test
 	public void testUserDefinedRange() {
-		aux.runStringTest(
+		auxz.runStringTest(
 				"##Find(Range) ##Literal(begin)-##Literal(end)\n##Find ##Range(r) ##replace ##(r.begin)*##(r.end)\n##example here: 'a'-'b' ##resultsIn here: 'a'*'b'");
 	}
 
 	@Test
 	public void a() {
-		aux.runStringTest(
+		auxz.runStringTest(
 				"##Find\n ##NoneOrMore ##Identifier(entry)\n		##separator ,\n		##closer ;\n ##delete\n\na,b,c;", "");
-	}
-	enum aux {
-		;
-		static void assertListEquals(final List<?> li1, final List<?> li2) {
-			assertEquals(li1.size(), li2.size());
-			for (int ¢ = 0; ¢ < li1.size(); ++¢)
-				assertEquals(li2.get(¢), li1.get(¢));
-		}
-
-		static void assertTEquals(final String s1, final String s2) {
-			assertEquals(cleanSpaces(s1), cleanSpaces(s2));
-		}
-
-		private static String cleanSpaces(final String s1) {
-			return s1.replace(" ", "").replace("\n", "").replace("\t", "").replace("\r", "");
-		}
-
-		static String list2string(final List<String> ss) {
-			return ss.stream().reduce("", (s1, s2) -> s1 + s2);
-		}
-
-		static void runFileTest(final File f) {
-			// System.out.println("***" + f.getName());
-			Reader stream;
-			try {
-				stream = new FileReader(f);
-				parser = new Parser(stream);
-				aux.assertTEquals("", aux.list2string(parser.parse()));
-			} catch (final IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		static void runFileTest(final String fileName) {
-			runFileTest(new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/" + fileName + ".lola"));
-		}
-
-		static void runLibTest(final String fileName) {
-			runFileTest(new File("./lola_libs/" + fileName + ".lola"));
-		}
-
-		static void runStringTest(final String ¢) {
-			runStringTest(¢, "");
-		}
-
-		static void runStringTest(final String s, final String result) {
-			final Reader stream = new StringReader(s);
-			parser = new Parser(stream);
-			try {
-				aux.assertTEquals(result, aux.list2string(parser.parse()));
-			} catch (final IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		static void printList(final List<String> ss) {
-			for (final String ¢ : ss)
-				System.out.println(¢);
-		}
 	}
 }

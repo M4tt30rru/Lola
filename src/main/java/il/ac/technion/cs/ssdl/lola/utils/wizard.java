@@ -7,7 +7,8 @@ import java.util.Map;
 import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$Find;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$UserDefinedKeyword;
-import il.ac.technion.cs.ssdl.lola.parser.builders.$CategoryKeyword;
+// TODO: recreate
+//import il.ac.technion.cs.ssdl.lola.parser.builders.$CategoryKeyword;
 
 import il.ac.technion.cs.ssdl.lola.parser.builders.Keyword;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.JflexLexer;
@@ -39,8 +40,9 @@ public enum wizard {
 			} catch (final Exception e1) {
 				if (userDefinedKeywords.containsKey(name))
 					return new $UserDefinedKeyword(t, userDefinedKeywords.get(name).list());
-				if (CategoriesHierarchy.hasCategory(name))
-					return new $CategoryKeyword(t, name);
+				// TODO: recreate
+				// if (CategoriesHierarchy.hasCategory(name))
+				// return new $CategoryKeyword(t, name);
 				e1.printStackTrace();
 			}
 		} catch (final Exception e) {
