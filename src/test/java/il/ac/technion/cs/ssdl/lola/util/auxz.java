@@ -9,26 +9,53 @@ import java.io.StringReader;
 import java.util.List;
 
 import il.ac.technion.cs.ssdl.lola.parser.Parser;
+/**
+ * Auxiliary utility for tests.
+ * @author Ori Roth
+ * @since May 24, 2017
+ */
 public enum auxz {
 	;
+	/**
+	 * Equalize lists by item equalization.
+	 * @param li1 @JD
+	 * @param li2 @JD
+	 */
 	public static void assertListEquals(final List<?> li1, final List<?> li2) {
 		assertEquals(li1.size(), li2.size());
 		for (int ¢ = 0; ¢ < li1.size(); ++¢)
 			assertEquals(li2.get(¢), li1.get(¢));
 	}
 
+	/**
+	 * White-space oblivious strings equalization.
+	 * @param s1 @JD
+	 * @param s2 @JD
+	 */
 	public static void assertTEquals(final String s1, final String s2) {
 		assertEquals(cleanSpaces(s1), cleanSpaces(s2));
 	}
 
+	/**
+	 * @param s1 @JD
+	 * @return it without white-spaces
+	 */
 	private static String cleanSpaces(final String s1) {
 		return s1.replace(" ", "").replace("\n", "").replace("\t", "").replace("\r", "");
 	}
 
+	/**
+	 * @param ss list of strings
+	 * @return concatenation of the strings
+	 */
 	public static String list2string(final List<String> ss) {
 		return ss.stream().reduce("", (s1, s2) -> s1 + s2);
 	}
 
+	/**
+	 * Parse pure @Lola file.
+	 * @param f @Lola file
+	 */
 	public static void runFileTest(final File f) {
 		// System.out.println("***" + f.getName());
 		Reader stream;
@@ -42,18 +69,36 @@ public enum auxz {
 		}
 	}
 
+	/**
+	 * Parse pure @Lola file.
+	 * @param fileName @Lola file name
+	 */
 	public static void runFileTest(final String fileName) {
 		runFileTest(new File("./src/il/ac/technion/cs/ssdl/lola/parser/tests/" + fileName + ".lola"));
 	}
 
+	/**
+	 * Parse pure @Lola file.
+	 * @param fileName @Lola file name without extension inside lola_libs
+	 *          directory
+	 */
 	public static void runLibTest(final String fileName) {
 		runFileTest(new File("./lola_libs/" + fileName + ".lola"));
 	}
 
+	/**
+	 * Parse pure @Lola code snippet.
+	 * @param ¢ pure @Lola code snippet
+	 */
 	public static void runStringTest(final String ¢) {
 		runStringTest(¢, "");
 	}
 
+	/**
+	 * Parse pure @Lola code snippet, equalize output to expected result.
+	 * @param ¢ @Lola code snippet
+	 * @param result expected output
+	 */
 	public static void runStringTest(final String s, final String result) {
 		final Reader stream = new StringReader(s);
 		Parser parser = new Parser(stream);
@@ -63,10 +108,5 @@ public enum auxz {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public static void printList(final List<String> ss) {
-		for (final String ¢ : ss)
-			System.out.println(¢);
 	}
 }
