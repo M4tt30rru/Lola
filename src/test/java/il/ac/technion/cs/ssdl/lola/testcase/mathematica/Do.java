@@ -53,4 +53,29 @@ public class Do {
 						"for(int _i0=0;_i0<5;++_i0) {f();}\n" + //
 						"for(int _i1=0;_i1<15;++_i1) {g();}");
 	}
+	
+	@Test
+	public void do5() {
+		auxz.runStringTest(
+				"" //
+						+ "##Find do[##Any(_e),{##Literal(_times)}];\n" //
+						+ " ##run {\n" //
+						+ "if 'x' not in locals():\n" //
+						+ " x=0\n" //
+						+ "else:\n" //
+						+ " x=x+1\n" //
+						+ "_doName='_i'+str(x)\n" //
+						+ " }\n" //
+						+ " ##replace for(int ##(_doName)=0;##(_doName)<##(_times);++##(_doName)) {##(_e);}\n" //
+						+ "public void foo(){"
+						+ "do[f(),{5}];\n" //
+						+ "do[g(),{15}];"
+						+ "}" //
+				,
+				"" + //
+						"public void foo(){" //
+						+ "for(int _i0=0;_i0<5;++_i0) {f();}\n" // 
+						+ "for(int _i1=0;_i1<15;++_i1) {g();}" //
+						+ "}");
+	}
 }
