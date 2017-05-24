@@ -19,6 +19,11 @@ import il.ac.technion.cs.ssdl.lola.parser.re.*;
 import il.ac.technion.cs.ssdl.lola.parser.tokenizer.*;
 import il.ac.technion.cs.ssdl.lola.utils.*;
 import static il.ac.technion.cs.ssdl.lola.utils.wizard.*;
+/**
+ * @Lola parser.
+ * @author Ori Roth
+ * @since May 24, 2017
+ */
 public class Parser {
 	private final Tokenizer tokenizer;
 	private final Stack<Builder> stack = new Stack<>();
@@ -29,15 +34,12 @@ public class Parser {
 	}
 
 	/**
-	 * @param s
+	 * @param s input text
 	 */
 	public Parser(String s) {
 		this(new StringReader(s));
 	}
 
-	/**
-	 * [[SuppressWarningsSpartan]]
-	 */
 	/* meanwhile this function is for testing */
 	public List<Lexi> directives() throws IOException {
 		final List<Lexi> $ = new ArrayList<>();
