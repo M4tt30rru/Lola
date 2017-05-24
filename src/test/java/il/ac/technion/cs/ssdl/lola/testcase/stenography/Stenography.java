@@ -49,17 +49,33 @@ public class Stenography {
 	@Test
 	public void stenography3() {
 		auxz.runStringTest("" //
-				+ "##Find(POpen) (\n" //
 				+ "##Find(PClose) )\n" //
 				+ "##Find(Type) ##Any\n" //
 				+ "##Find ##Type(_returnType) ##Identifier(_name) (\n" //
 				+ " ##NoneOrMore ##Type(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
-				+ " ##PClose = ##Any(_value);\n" //
-				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {return ##(_value);}\n" //
+				+ " ##PClose = throws ##Any(_value);\n" //
+				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {throw ##(_value);}\n" //
 				+ "##example \n" //
-				+ "public int answer(Question q) = 42;\n"
+				+ "public Coffe makeCoffe(Milk milk, List<Bean> beans) = throws new UnsupportedOperationException();\n"
 				+ "##resultsIn\n" //
-				+ "public int answer(Question q) {return 42;}");
+				+ "public Coffe makeCoffe(Milk milk, List<Bean> beans) {throw new UnsupportedOperationException();}");
+	}
+
+	@Test
+	public void stenography4() {
+		auxz.runStringTest("" //
+				+ "##Find(PClose) )\n" //
+				+ "##Find(Type) ##Any\n" //
+				+ "##Find(Arrow) ->\n" //
+				+ "##Find ##Type(_returnType) ##Identifier(_name) (\n" //
+				+ " ##NoneOrMore ##Type(_type) ##Identifier(_arg)\n" //
+				+ "  ##separator ,\n" //
+				+ " ##PClose ##Arrow ##Any(_delegator);\n" //
+				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {return ##(_delegator)(##(','.join([_arg.name for _arg in _args])));}\n" //
+				+ "##example \n" //
+				+ "public Coffe makeCoffe(Milk milk, List<Bean> beans) -> wife.make;\n"
+				+ "##resultsIn\n" //
+				+ "public Coffe makeCoffe(Milk milk, List<Bean> beans) {return wife.make(milk, beans);}");
 	}
 }
