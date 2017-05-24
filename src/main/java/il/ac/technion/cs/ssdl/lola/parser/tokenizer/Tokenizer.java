@@ -17,7 +17,7 @@ import il.ac.technion.cs.ssdl.lola.parser.lexer.JflexLexer;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
 import il.ac.technion.cs.ssdl.lola.utils.Printer;
 public class Tokenizer implements Iterable<Token> {
-	public static String lolaEscapingCharacter = JflexLexer.lolaEscapingCharacter;
+	public static final String lolaEscapingCharacter = JflexLexer.lolaEscapingCharacter;
 	private ArrayList<Token> tokens = new ArrayList<>();
 	private int idx;
 
@@ -53,6 +53,11 @@ public class Tokenizer implements Iterable<Token> {
 		--idx;
 	}
 
+	/**
+	 * Consumes keyword and consecutive snippet (if possible).
+	 * @param it tokens iterator
+	 * @throws IOException
+	 */
 	private void consumeKeyword(final ListIterator<Token> it) throws IOException {
 		Token t = it.next();
 		tokens.add(t);
@@ -104,8 +109,8 @@ public class Tokenizer implements Iterable<Token> {
 	}
 
 	/**
-	 * @param ¢
-	 * @return
+	 * @param ¢ tokens iterator
+	 * @return next non-trivia token
 	 * @throws IOException
 	 */
 	private Token getNextNotTrivia(ListIterator<Token> ¢) throws IOException {
@@ -142,7 +147,9 @@ public class Tokenizer implements Iterable<Token> {
 	}
 
 	/**
-	 * consumes all following trivia and concatenates it to one
+	 * Consumes consecutive trivia tokens as one text-concatenated trivia token.
+	 * @param ¢ tokens iterator
+	 * @throws IOException
 	 */
 	private void consumeTrivia(ListIterator<Token> ¢) throws IOException {
 		if (!¢.hasNext())
@@ -200,7 +207,13 @@ public class Tokenizer implements Iterable<Token> {
 		tokens.addAll(idx, new Tokenizer(stream).tokens);
 	}
 
-	/** reads all tokens :) */
+	/**
+	 * Read all tokens from input with {@link JflexLexer}.
+	 * @param stream input
+	 * @throws IOException
+	 * @see {@link #consumeKeyword}
+	 * @see {@link #consumeTrivia}
+	 */
 	private void readAllTokens(final Reader stream) throws IOException {
 		final JflexLexer jfl = new JflexLexer(stream);
 		final List<Token> ts = new ArrayList<>();
