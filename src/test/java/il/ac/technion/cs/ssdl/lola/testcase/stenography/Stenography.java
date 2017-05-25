@@ -155,7 +155,10 @@ public class Stenography {
 						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
 	}
 	
-	/* _returnType is Coffe
-	 * 
+	/* _returnType is Coffee
+	 * 	_name makeCoffee
+	 *  _type: Milk and List
+	 *  _arg: milk and beans
+	 *  _delegator: wife.make
 	 */
 }
