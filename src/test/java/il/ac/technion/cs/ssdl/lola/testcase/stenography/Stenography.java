@@ -145,7 +145,7 @@ public class Stenography {
 		auxz.runStringTest("" //
 				+ "##Find(PClose) )\n" //
 				+ "##Find(Arrow) ->\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType _name (_type _arg, _type _arg ) -> _delegator 
+				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _ 
 				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
 				+ " ##PClose ##Arrow ##Any(_delegator);\n" //
@@ -154,11 +154,5 @@ public class Stenography {
 				"" //
 						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
 	}
-	
-	/* _returnType is Coffee
-	 * 	_name makeCoffee
-	 *  _type: Milk and List
-	 *  _arg: milk and beans
-	 *  _delegator: wife.make
-	 */
+
 }
