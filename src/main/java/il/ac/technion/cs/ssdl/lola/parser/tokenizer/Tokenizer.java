@@ -5,14 +5,13 @@ import static il.ac.technion.cs.ssdl.lola.utils.wizard.newKeyword;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy;
-import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
 import il.ac.technion.cs.ssdl.lola.parser.builders.$UserDefinedKeyword;
+import il.ac.technion.cs.ssdl.lola.parser.builders.SnippetToken;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.JflexLexer;
 import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
 import il.ac.technion.cs.ssdl.lola.utils.Printer;
@@ -79,7 +78,7 @@ public class Tokenizer implements Iterable<Token> {
 		if (t != null)
 			if (isPackageSnippet(t))
 				tokens.add(newSnippetToken(t));
-			else if (!mightBeSnippet(t))
+			else if (!mightBeSnippet(kw, t))
 				it.previous();
 			else if (!acceptsSnippet(kw, createDummySnippet(t)))
 				it.previous();
@@ -100,12 +99,15 @@ public class Tokenizer implements Iterable<Token> {
 		return $.snippet != null;
 	}
 
+	// TODO Roth: check correctness, alternatives to the use of Token#isElaborator
 	/**
-	 * @param $
+	 * @param kw
+	 * @param t
 	 * @return
 	 */
-	private static boolean mightBeSnippet(Token $) {
-		return Arrays.asList('(', '{', '"').contains($.text.charAt(0));
+	private static boolean mightBeSnippet(Token kw, Token t) {
+		char c = t.text.charAt(0);
+		return c == '"' || c == '{' || c == '(' && !kw.isElaborator();
 	}
 
 	/**

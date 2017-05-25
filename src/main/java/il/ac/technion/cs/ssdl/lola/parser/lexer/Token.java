@@ -48,6 +48,14 @@ public class Token extends java_cup.runtime.Symbol {
 		return category.isTrivia;
 	}
 
+	// TODO Roth: check if it is required
+	public boolean isElaborator() {
+		if (!isKeyword() || text == null)
+			return false;
+		final String[] $ = text.split("##");
+		return $.length == 2 && Character.isLowerCase($[1].charAt(0));
+	}
+
 	@Override
 	public String toString() {
 		return text;
