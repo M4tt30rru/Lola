@@ -67,7 +67,32 @@ public class Stenography {
 						+ "  do_main_silently(argc, argv);\n" //
 						+ "}");
 	}
-
+	
+	@Test
+	public void stenography1d() {
+		auxz.runStringTest("" //
+				+ "##Find(POpen) (\n" //
+				+ "##Find(PClose) )\n" //
+				+ "##Find(CurlyOpen) {\n" //
+				+ "##Find(CurlyClose) }\n" //
+				+ "##Find ##POpen\n" // (
+				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
+				+ "  ##separator ,\n" //
+				+ " ##PClose ##CurlyOpen ##Any(_c1) ##POpen # ##PClose ##Any(_c2) ##CurlyClose\n" //
+				+ " ##replace (##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {##(_c1) (##(','.join(str(_arg) for _arg in _args))) ##(_c2)}\n" //
+				+ "void main(Integer argc, String argv) {\n" //
+				+ "  printf(\"Hello!\");\n" //
+				+ "  do_main_silently(#);\n" //
+				+ "  printf(\"Hello (Again)!\");\n" //
+				+ "}",
+				"" //
+						+ "void main(Integer argc, String argv) {\n" //
+						+ "  printf(\"Hello!\");\n" //
+						+ "  do_main_silently(argc, argv);\n" //
+						+ "  printf(\"Hello (Again)!\");\n" //
+						+ "}");
+	}
+	
 	@Test
 	public void stenography2() {
 		auxz.runStringTest(
