@@ -145,13 +145,17 @@ public class Stenography {
 		auxz.runStringTest("" //
 				+ "##Find(PClose) )\n" //
 				+ "##Find(Arrow) ->\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" //
+				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType _name (_type _arg, _type _arg ) -> _delegator 
 				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
 				+ " ##PClose ##Arrow ##Any(_delegator);\n" //
 				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {return ##(_delegator)(##(','.join([_arg.name for _arg in _args])));}\n" //
-				+ "public Coffe makeCoffe(Milk milk, List beans) -> wife.make;\n",
+				+ "public Coffee makeCoffee(Milk milk, List beans) -> wife.make;\n",
 				"" //
-						+ "public Coffe makeCoffe(Milk milk, List beans) {return wife.make(milk, beans);}");
+						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
 	}
+	
+	/* _returnType is Coffe
+	 * 
+	 */
 }
