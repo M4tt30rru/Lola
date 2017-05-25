@@ -130,7 +130,7 @@ public class Stenography {
 	public void stenography4() {
 		auxz.runStringTest("" //
 				+ "##Find(PClose) )\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" //
+				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType _name (type _arg, type_arg) = throws _value
 				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
 				+ " ##PClose = throws ##Any(_value);\n" //
@@ -154,5 +154,6 @@ public class Stenography {
 				"" //
 						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
 	}
+	
 
 }
