@@ -35,7 +35,7 @@ public class $NoneOrMore extends RegExpKeyword implements RegExpable {
 				return expectedElaborators.contains(b.name());
 			case List :
 				return !(b instanceof Keyword) || b instanceof RegExpKeyword || expectedElaborators.contains(b.name());
-			default :
+			default:
 				return false;
 		}
 	}
