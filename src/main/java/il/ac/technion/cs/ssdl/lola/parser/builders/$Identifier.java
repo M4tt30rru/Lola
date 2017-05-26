@@ -28,6 +28,6 @@ public class $Identifier extends RegExpKeyword {
 
 	@Override
 	public RegExp toRegExp() {
-		return new Atomic.Identifier(snippet.token.text);
+		return new Atomic.Identifier(snippet == null ? "(dummy)" : snippet.token.text);
 	}
 };

@@ -12,7 +12,7 @@ public class $Optional extends RegExpKeyword {
 
 	@Override
 	public boolean accepts(final Node b) {
-		return state == Automaton.List;
+		return state == Automaton.List && (!(b instanceof Keyword) || b instanceof RegExpKeyword);
 	}
 
 	@Override

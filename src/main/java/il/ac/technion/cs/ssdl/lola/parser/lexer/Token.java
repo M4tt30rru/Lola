@@ -1,6 +1,7 @@
 package il.ac.technion.cs.ssdl.lola.parser.lexer;
 import il.ac.technion.cs.ssdl.lola.parser.*;
 import il.ac.technion.cs.ssdl.lola.parser.CategoriesHierarchy.*;
+import il.ac.technion.cs.ssdl.lola.parser.tokenizer.Tokenizer;
 public class Token extends java_cup.runtime.Symbol {
 	public static Token newSnippetToken(final Token ¢) {
 		final Token $ = new Token(¢.row, ¢.column, ¢.text, CategoriesHierarchy.getCategory("snippet"));
@@ -52,7 +53,7 @@ public class Token extends java_cup.runtime.Symbol {
 	public boolean isElaborator() {
 		if (!isKeyword() || text == null)
 			return false;
-		final String[] $ = text.split("##");
+		final String[] $ = text.split(Tokenizer.lolaEscapingCharacter);
 		return $.length == 2 && Character.isLowerCase($[1].charAt(0));
 	}
 
