@@ -23,7 +23,7 @@ public class Stenography {
 						+ "  do_main_silently(argc, argv);\n" //
 						+ "}");
 	}
-	
+
 	@Test
 	public void stenography1b() {
 		auxz.runStringTest("" //
@@ -44,7 +44,7 @@ public class Stenography {
 						+ "  do_main_silently(argc, argv);\n" //
 						+ "}");
 	}
-	
+
 	@Test
 	public void stenography1c() {
 		auxz.runStringTest("" //
@@ -67,7 +67,7 @@ public class Stenography {
 						+ "  do_main_silently(argc, argv);\n" //
 						+ "}");
 	}
-	
+
 	@Test
 	public void stenography1d() {
 		auxz.runStringTest("" //
@@ -92,13 +92,13 @@ public class Stenography {
 						+ "  printf(\"Hello (Again)!\");\n" //
 						+ "}");
 	}
-	
+
 	@Test
 	public void stenography2() {
 		auxz.runStringTest(
 				"" //
 						+ "##Find(ConstAss) :=:\n" //
-						+ "##Find ##Identifier(_type) ##Identifier(_name) ##ConstAss ##Any(_value);\n" //
+						+ "##Find ##Identifier(_type) ##Identifier(_name) ##ConstAss ##Any(_value);\n" // _type _name :=: _value
 						+ " ##replace static final ##(_type) ##(_name) = ##(_value);\n" //
 						+ "class Cat {\n" //
 						+ "  public Integer LEGS_COUNT :=: 4;\n" //
@@ -130,7 +130,14 @@ public class Stenography {
 	public void stenography4() {
 		auxz.runStringTest("" //
 				+ "##Find(PClose) )\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType _name (type _arg, type_arg) = throws _value
+				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType
+																																			// _name
+																																			// (type
+																																			// _arg,
+																																			// type_arg)
+																																			// =
+																																			// throws
+																																			// _value
 				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
 				+ " ##PClose = throws ##Any(_value);\n" //
@@ -145,7 +152,7 @@ public class Stenography {
 		auxz.runStringTest("" //
 				+ "##Find(PClose) )\n" //
 				+ "##Find(Arrow) ->\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _ 
+				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _
 				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
 				+ "  ##separator ,\n" //
 				+ " ##PClose ##Arrow ##Any(_delegator);\n" //
@@ -154,6 +161,4 @@ public class Stenography {
 				"" //
 						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
 	}
-	
-
 }
