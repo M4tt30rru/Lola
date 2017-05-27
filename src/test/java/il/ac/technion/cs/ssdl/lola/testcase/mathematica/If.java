@@ -103,7 +103,6 @@ public class If {
 	@Test
 	public void if6() {
 		String s = ""
-//							 + "##Find(NegativeIdentifier) -##Identifier\n" //
 							 + "##Find(NoCommasExpression)\n" //
 							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
 							 + "##Find(Expression)\n" //
