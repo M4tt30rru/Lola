@@ -127,4 +127,45 @@ public class Stenography {
 						+ "void error(String message) = throws BadError(message);", //
 				"void error(String message) {throw new BadError(message);}");
 	}
+
+	@Test
+	public void stenography6() {
+		auxz.runStringTest("" //
+				+ "##Find(NoCommaExpression)\n" //
+				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n" //
+				+ "##Find(Expression)\n" //
+				+ " ##Either ##NoCommaExpression ##or (##Any)\n" //
+				+ "##Find(PrimitiveType)\n" //
+				+ " ##Either boolean ##or byte ##or char ##or short ##or int ##or long ##or float ##or double ##or void\n" //
+				+ "##Find(Type)\n" //
+				+ " ##Either ##Identifier(_name) ##or ##PrimitiveType(_name)\n" //
+				+ " ##Optional <##Any>\n" //
+				+ " ##NoneOrMore []\n" //
+				+ "##Find(ArgumentDeclaration)\n" //
+				+ " ##Type(_type) ##Identifier(_name)\n" //
+				+ "##Find(DefaultableArgumentDeclaration)\n" //
+				+ " ##Either ##ArgumentDeclaration(_dec) ##or ##ArgumentDeclaration(_dec) = ##Expression(_value)\n" //
+				+ "##Find ##Identifier(_name) (##NoneOrMore ##DefaultableArgumentDeclaration(_dec) ##separator ,) = default;\n" //
+				+ " ##replace ##ForEach([i for i, d in enumerate(_decs) if hasattr(d, '_value')] + [len(_decs)]) ##(_name) (##(','.join(d._dec.name for d in _decs[:_]))) {##(''.join('this.' + d._dec._name.name + '=' + d._dec._name.name + ';' for d in _decs[:_])) ##(''.join('this.' + d._dec._name.name + '=' + d._value.name + ';' for d in _decs[_:]))}\n" //
+				+ "A(int a, int b, int c=1, int d=2) = default;", //
+				"" //
+						+ "A(int a, int b) {\n" //
+						+ " this.a = a;\n" //
+						+ " this.b = b;\n" //
+						+ " this.c = 1;\n" //
+						+ " this.d=2;\n" //
+						+ "}\n" //
+						+ "A(int a,int b,int c) {\n" //
+						+ " this.a = a;\n" //
+						+ " this.b = b;\n" //
+						+ " this.c = c;\n" //
+						+ " this.d = 2;\n" //
+						+ "}\n" //
+						+ "A(int a, int b, int c, int d) {\n" //
+						+ " this.a = a;\n" //
+						+ " this.b = b;\n" //
+						+ " this.c = c;\n" //
+						+ " this.d = d;\n" //
+						+ "}");
+	}
 }
