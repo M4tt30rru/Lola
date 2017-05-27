@@ -70,6 +70,22 @@ public class If {
 		auxz.runStringTest(s, result);
 	}
 
+	@Test
+	public void if4() {
+		String s = ""
+							 + "##Find(NoCommasExpression)\n" //
+							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
+							 + "##Find(Expression)\n" //
+							 + "	##NoCommasExpression\n" //
+							 + "##Find if[##Expression(_condition),##Expression(_t),##Expression(_f)];\n " //
+							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
+							 + "if[x>0,f(x),g(x)];"; 
+		System.out.println(s);
+		String result = "if(x>0)  return  f(x)  else  return  g(x);\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	
 
 
 }
