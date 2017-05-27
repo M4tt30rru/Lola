@@ -36,11 +36,25 @@ public class If {
 	@Test
 	public void if2() {
 		String s = ""
-							 + "##Find(##BooleanLiteral) ##Either true ##or false" // 
+							 + "##Find(True) true\n"
+							 + "##Find(False) false\n"
+							 + "##Find(BooleanLiteral) ##Either true ##or false\n" // 
 							 + "##Find if[##BooleanLiteral(_condition),##Literal(_t),##Literal(_f)];\n " //
 							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
 							 + "if[true,1,2];"; 
 		String result = "if(true)  return  1  else  return  2;\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
+	public void if3() {
+		String s = ""
+							 + "##Find(BooleanLiteral) ##Either true ##or false\n" // 
+							 + "##Find if[##Identifier(_condition),##Literal(_t),##Literal(_f)];\n " //
+							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
+							 + "if[i,1,2];"; 
+		System.out.println(s);
+		String result = "if(i)  return  1  else  return  2;\n";
 		auxz.runStringTest(s, result);
 	}
 }
