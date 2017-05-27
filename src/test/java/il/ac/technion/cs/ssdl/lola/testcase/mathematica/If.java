@@ -22,7 +22,6 @@ public class If {
 //	+ "do[f(i);g(i * 2),{i,100}];", //
 //"for(int i=0;i<100;++i) {f(i);g(i * 2);}");
 	
-	
 	@Test
 	public void if1() {
 		String s = "" // 
@@ -47,6 +46,19 @@ public class If {
 	}
 	
 	@Test
+	public void if2b() {
+		String s = ""
+							 + "##Find(True) true\n"
+							 + "##Find(False) false\n"
+							 + "##Find(BooleanLiteral) ##Either ##True ##or ##False\n" // 
+							 + "##Find if[##BooleanLiteral(_condition),##Literal(_t),##Literal(_f)];\n " //
+							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
+							 + "if[true,1,2];"; 
+		String result = "if(true)  return  1  else  return  2;\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
 	public void if3() {
 		String s = ""
 							 + "##Find(BooleanLiteral) ##Either true ##or false\n" // 
@@ -57,4 +69,7 @@ public class If {
 		String result = "if(i)  return  1  else  return  2;\n";
 		auxz.runStringTest(s, result);
 	}
+
+
+
 }
