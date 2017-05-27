@@ -85,7 +85,50 @@ public class If {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Test
+	public void if5() {
+		String s = ""
+							 + "##Find(NoCommasExpression)\n" //
+							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
+							 + "##Find(Expression)\n" //
+							 + "	##NoCommasExpression\n" //
+							 + "##Find if[##Expression(_condition),##Expression(_t),##Expression(_f)];\n " //
+							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
+							 + "if[f(x),g(x),h(x)];"; 
+		System.out.println(s);
+		String result = "if(f(x))  return  g(x)  else  return  h(x);\n";
+		auxz.runStringTest(s, result);
+	}
 	
-
+	@Test
+	public void if6() {
+		String s = ""
+//							 + "##Find(NegativeIdentifier) -##Identifier\n" //
+							 + "##Find(NoCommasExpression)\n" //
+							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
+							 + "##Find(Expression)\n" //
+							 + "	##NoCommasExpression\n" //
+							 + "##Find if[##Identifier(_t)>0,##Identifier,-##Identifier];\n " //
+							 + "	##replace if(##(_t)>0) return ##(_t) else return -##(_t);\n"
+							 + "if[x>0,x,-x];"; 
+		System.out.println(s);
+		String result = "if(x>0)  return  x  else  return  -x;\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	
+	
+	@SuppressWarnings("unused")
+	private class Foo {
+	
+		@SuppressWarnings("unused")
+		private int foo(){
+			int x = 3;
+			if(x>0)
+				return x;
+			else
+				return -x;
+		}
+	}
 
 }
