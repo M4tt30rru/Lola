@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import il.ac.technion.cs.ssdl.lola.parser.Parser;
@@ -57,7 +60,6 @@ public enum auxz {
 	 * @param f @Lola file
 	 */
 	public static void runFileTest(final File f) {
-		// System.out.println("***" + f.getName());
 		Reader stream;
 		try {
 			stream = new FileReader(f);
@@ -65,6 +67,26 @@ public enum auxz {
 			auxz.assertTEquals("", auxz.list2string(parser.parse()));
 		} catch (final IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Parse pure @Lola file and compares with expected output. Both files should
+	 * be present as test resources, @Lola file with ".lola" extension and
+	 * expected output with ".out" extension.
+	 * @param test @Lola/expected output file name
+	 */
+	public static void runResourceTest(final String test) {
+		Reader stream;
+		try {
+			stream = new FileReader(ClassLoader.getSystemResource(test + ".lola").getFile());
+			Parser parser = new Parser(stream);
+			auxz.assertTEquals( //
+					Files.lines(Paths.get(ClassLoader.getSystemResource(test + ".out").toURI())).reduce("",
+							(a, b) -> a + "\n" + b),
+					auxz.list2string(parser.parse()));
+		} catch (final IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 	}

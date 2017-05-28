@@ -1,0 +1,20 @@
+##Import "std.lola"
+##Find
+ ##MethodDeclaration(_dec) = default;
+ ##run {
+__ = _dec._type._name.name.strip()
+if __ == 'void':
+ _return = None
+elif __ in ['int', 'short', 'byte']:
+ _return = '0'
+elif __ in ['double', 'float']:
+ _return = '0.0'
+else:
+ _return = 'null'
+ }
+ ##replace ##(_dec) {##('' if _return is None else 'return ' + _return + ';')}
+
+double f() = default;
+int g() = default;
+T h() = default;
+void k() = default;

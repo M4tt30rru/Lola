@@ -1,15 +1,19 @@
 package il.ac.technion.cs.ssdl.lola.parser.builders;
-import java.io.*;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-import il.ac.technion.cs.ssdl.lola.parser.*;
-import il.ac.technion.cs.ssdl.lola.parser.builders.AST.*;
-import il.ac.technion.cs.ssdl.lola.parser.lexer.*;
+import il.ac.technion.cs.ssdl.lola.parser.PythonAdapter;
+import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Automaton;
+import il.ac.technion.cs.ssdl.lola.parser.builders.AST.Node;
+import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
 import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Import extends UnacceptableGeneratingKeyword {
 	static List<String> imported = new ArrayList<>();
+	static String prefix = "";
 
 	public $Import(final Token token) {
 		super(token);
@@ -38,11 +42,15 @@ public class $Import extends UnacceptableGeneratingKeyword {
 			return "";
 		imported.add(fileName);
 		try {
-			return new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+			return new String(Files.readAllBytes(Paths.get(prefix + fileName)), StandardCharsets.UTF_8);
 			// TODO: Should we worry about encoding?
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static void setPrefix(final String prefix) {
+		$Import.prefix = prefix;
 	}
 }

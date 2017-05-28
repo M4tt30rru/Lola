@@ -1,0 +1,7 @@
+##Import "std.lola"
+##Find(DefaultableArgumentDeclaration)
+ ##Either ##ArgumentDeclaration(_dec) ##or ##ArgumentDeclaration(_dec) = ##Expression(_value)
+##Find ##Identifier(_name) (##NoneOrMore ##DefaultableArgumentDeclaration(_dec) ##separator ,) = default;
+ ##replace ##ForEach([i for i, d in enumerate(_decs) if hasattr(d, '_value')] + [len(_decs)]) ##(_name) (##(','.join(d._dec.name for d in _decs[:_]))) {##(''.join('this.' + d._dec._name.name + '=' + d._dec._name.name + ';' for d in _decs[:_])) ##(''.join('this.' + d._dec._name.name + '=' + d._value.name + ';' for d in _decs[_:]))}
+
+A(int a, int b, int c=1, int d=a+b) = default;

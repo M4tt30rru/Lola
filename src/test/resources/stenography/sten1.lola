@@ -1,0 +1,15 @@
+##Find
+ const ##Identifier(_name) = ##Literal(_value);
+ ##run {
+if isinstance(_value, str):
+ _type = 'String'
+elif isinstance(_value, (int, long)):
+ _type = 'int'
+else:
+ _type = 'double'
+ }
+ ##replace public static final ##(_type) ##(_name) = ##(_value);
+
+const x = 1;
+const y = "1";
+const z = 1.0;

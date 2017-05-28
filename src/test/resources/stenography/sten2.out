@@ -1,0 +1,1 @@
+   double  sin (doublex) {return cos(x+pi/2);}

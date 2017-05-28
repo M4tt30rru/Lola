@@ -1,0 +1,1 @@
+    void  error ( Stringmessage ) {throw new BadError(message);}

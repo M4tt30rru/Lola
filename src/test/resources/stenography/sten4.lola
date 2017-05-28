@@ -1,0 +1,6 @@
+##Import "std.lola"
+##Find
+ ##MethodDeclaration(_dec) = ##Any(_value);
+ ##replace ##(_dec) {return ##(_value);}
+
+T h(int x) = new T(x);

@@ -1,0 +1,14 @@
+##Find(PrimitiveType)
+ ##Either boolean ##or byte ##or char ##or short ##or int ##or long ##or float ##or double ##or void
+##Find(Type)
+ ##Either ##Identifier(_name) ##or ##PrimitiveType(_name)
+ ##Optional <##Any>
+ ##NoneOrMore []
+##Find(MethodDeclaration)
+ ##Type(_type) ##Identifier(_name) (##Any(_args))
+##Find(NoCommaExpression)
+ ##Match ##Any ##exceptFor ##Any, ##Any
+##Find(Expression)
+ ##Either ##NoCommaExpression ##or (##Any)
+##Find(ArgumentDeclaration)
+ ##Type(_type) ##Identifier(_name)

@@ -1,0 +1,14 @@
+double f() {
+	return 0.0;
+}
+
+int g() {
+	return 0;
+}
+
+T h() {
+	return null;
+}
+
+void k() {
+}
