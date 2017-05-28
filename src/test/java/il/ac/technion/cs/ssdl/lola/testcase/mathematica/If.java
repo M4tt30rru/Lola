@@ -4,23 +4,15 @@ import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 
+/**
+ * Test Case for the Mathematica If
+ * 
+ * If[condition,t,f] gives t if condition evaluates to True, and f if it evaluates to False.
+ * If[condition,t,f,u] gives u if condition evaluates to neither True nor False.
+ * 
+ */
+
 public class If {
-	
-	/*
-	 * Mathematica If
-	 * 
-	 * If[condition,t,f] gives t if condition evaluates to True, and f if it evaluates to False.
-	 * If[condition,t,f,u] gives u if condition evaluates to neither True nor False.
-	 * 
-	 */
-			
-	// If[true,1,2] 
-	
-//	"" //
-//	+ "##Find do[##Any(_e),{##Identifier(_i),##Literal(_max)}];\n" //
-//	+ " ##replace for(int ##(_i)=0;##(_i)<##(_max);++##(_i)) {##(_e);}\n" //
-//	+ "do[f(i);g(i * 2),{i,100}];", //
-//"for(int i=0;i<100;++i) {f(i);g(i * 2);}");
 	
 	@Test
 	public void if1() {
@@ -65,7 +57,6 @@ public class If {
 							 + "##Find if[##Identifier(_condition),##Literal(_t),##Literal(_f)];\n " //
 							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
 							 + "if[i,1,2];"; 
-		System.out.println(s);
 		String result = "if(i)  return  1  else  return  2;\n";
 		auxz.runStringTest(s, result);
 	}
@@ -80,7 +71,6 @@ public class If {
 							 + "##Find if[##Expression(_condition),##Expression(_t),##Expression(_f)];\n " //
 							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
 							 + "if[x>0,f(x),g(x)];"; 
-		System.out.println(s);
 		String result = "if(x>0)  return  f(x)  else  return  g(x);\n";
 		auxz.runStringTest(s, result);
 	}
@@ -95,7 +85,6 @@ public class If {
 							 + "##Find if[##Expression(_condition),##Expression(_t),##Expression(_f)];\n " //
 							 + "	##replace if(##(_condition)) return ##(_t) else return ##(_f);\n"
 							 + "if[f(x),g(x),h(x)];"; 
-		System.out.println(s);
 		String result = "if(f(x))  return  g(x)  else  return  h(x);\n";
 		auxz.runStringTest(s, result);
 	}
@@ -110,7 +99,6 @@ public class If {
 							 + "##Find if[##Identifier(_t)>0,##Identifier,-##Identifier];\n " //
 							 + "	##replace if(##(_t)>0) return ##(_t) else return -##(_t);\n"
 							 + "if[x>0,x,-x];"; 
-		System.out.println(s);
 		String result = "if(x>0)  return  x  else  return  -x;\n";
 		auxz.runStringTest(s, result);
 	}
@@ -120,7 +108,6 @@ public class If {
 	@SuppressWarnings("unused")
 	private class Foo {
 	
-		@SuppressWarnings("unused")
 		private int foo(){
 			int x = 3;
 			if(x>0)
