@@ -1,0 +1,1 @@
+Optional.of(Optional.of(f()).orElse(d1)).orElse(d2)

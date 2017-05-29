@@ -14,7 +14,7 @@ import il.ac.technion.cs.ssdl.lola.util.auxz;
 @RunWith(Parameterized.class)
 public class Stenography {
 	protected static final int STENOGRAPHY_DEFINED_TESTS = 6;
-	protected static final int SIMPLE_DEFINED_TESTS = 2;
+	protected static final int SIMPLE_DEFINED_TESTS = 3;
 	protected final String fileName;
 
 	@Test

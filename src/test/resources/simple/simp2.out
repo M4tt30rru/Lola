@@ -1,1 +1,2 @@
-X
+Integer i = Arrays.asList(x, y(), Z.z).stream().allMatch(a -> a.isFine()) ? 3 :
+ Arrays.asList(w).stream().allMatch(a -> a.isFine()) ? W() : null;
