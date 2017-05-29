@@ -1,0 +1,2 @@
+if (!(isBad().get()))
+ newRunnable(() -> {f().g().run();note("DONE");}).run();

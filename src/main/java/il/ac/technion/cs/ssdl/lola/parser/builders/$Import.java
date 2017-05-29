@@ -13,6 +13,7 @@ import il.ac.technion.cs.ssdl.lola.parser.lexer.Token;
 import il.ac.technion.cs.ssdl.lola.utils.iz;
 public class $Import extends UnacceptableGeneratingKeyword {
 	static List<String> imported = new ArrayList<>();
+	// TODO Roth: externalize
 	static String prefix = "";
 
 	public $Import(final Token token) {

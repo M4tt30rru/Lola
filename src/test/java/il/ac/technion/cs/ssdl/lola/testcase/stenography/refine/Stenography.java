@@ -13,7 +13,8 @@ import il.ac.technion.cs.ssdl.lola.parser.builders.$Import;
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 @RunWith(Parameterized.class)
 public class Stenography {
-	protected static final int DEFINED_TESTS = 6;
+	protected static final int STENOGRAPHY_DEFINED_TESTS = 6;
+	protected static final int SIMPLE_DEFINED_TESTS = 2;
 	protected final String fileName;
 
 	@Test
@@ -28,8 +29,10 @@ public class Stenography {
 	@Parameters(name = "{index}. {1}") //
 	public static Collection<Object[]> data() {
 		final List<Object[]> $ = new LinkedList<>();
-		for (int i = 1; i <= DEFINED_TESTS; ++i)
-			$.add(new Object[]{"stenography/sten" + i, "sten" + i + ".lola"});
+		for (int i = 1; i <= STENOGRAPHY_DEFINED_TESTS; ++i)
+			$.add(new Object[]{"stenography/sten" + i, "sten" + i});
+		for (int i = 1; i <= SIMPLE_DEFINED_TESTS; ++i)
+			$.add(new Object[]{"simple/simp" + i, "simp" + i});
 		return $;
 	}
 
