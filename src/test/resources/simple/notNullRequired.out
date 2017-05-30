@@ -1,0 +1,5 @@
+int f(Integer x, String s) {
+ Objects.requireNonNull(x);
+ Objects.requireNonNull(s);
+ return x + Integer.parse(s);
+}

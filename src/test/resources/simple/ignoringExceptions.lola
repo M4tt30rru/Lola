@@ -1,0 +1,8 @@
+##Import "std.lola"
+##Find(ExceptionsList) ##OneOrMore ##Identifier(_exc) ##separator ,
+##Find ##Block(_block) ignoring ##ExceptionsList(_ls);
+ ##replace {try ##(_block) catch (##("|".join([e.name for e in _ls._excs])) __) {}}
+
+void div(Double d1, Double d2) {
+ System.out.println("Division of " + d1 + " by " + d2 + " = " + (d1 / d2));
+} ignoring ArithmeticException, NullPointerException;

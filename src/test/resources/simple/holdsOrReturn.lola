@@ -1,0 +1,5 @@
+##Import "std.lola"
+##Find ##Expression(_exp) || return ##Expression(_def);
+ ##replace if (!(##(_exp))) return ##(_def); else ;
+
+f() != null || return "f returned null!";

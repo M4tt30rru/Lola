@@ -12,3 +12,5 @@
  ##Either ##NoCommaExpression ##or (##Any)
 ##Find(ArgumentDeclaration)
  ##Type(_type) ##Identifier(_name)
+##Find(Block)
+ { ##Any(_statements) }

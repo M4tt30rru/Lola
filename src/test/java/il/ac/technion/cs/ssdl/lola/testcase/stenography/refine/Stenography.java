@@ -2,6 +2,7 @@ package il.ac.technion.cs.ssdl.lola.testcase.stenography.refine;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,12 @@ public class Stenography {
 		final List<Object[]> $ = new LinkedList<>();
 		for (final String f : filesOf("simple", "stenography"))
 			$.add(new Object[]{f, f});
+		$.sort(new Comparator<Object[]>() {
+			@Override
+			public int compare(Object[] o1, Object[] o2) {
+				return ((String) o1[0]).compareTo((String) o2[0]);
+			}
+		});
 		return $;
 	}
 

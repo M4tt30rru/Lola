@@ -1,0 +1,6 @@
+void div(Double d1, Double d2) {
+ try {
+  System.out.println("Division of " + d1 + " by " + d2 + " = " + (d1 / d2));
+ } catch (ArithmeticException | NullPointerException __) {
+ }
+}

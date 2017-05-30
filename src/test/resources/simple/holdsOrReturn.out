@@ -1,0 +1,4 @@
+if (!(f() != null))
+ return "f returned null!";
+else
+ ;
