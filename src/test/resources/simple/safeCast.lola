@@ -1,0 +1,5 @@
+##Import "std.lola"
+##Find ##Type(_type) ? (##Expression(_exp))
+ ##replace Optional.ofNullable(##(_exp)).filter(__ -> __ instanceof ##(_type)).orElse(null)
+
+Dog ? (f().g().h)

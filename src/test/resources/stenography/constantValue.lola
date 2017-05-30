@@ -3,4 +3,4 @@
  ##MethodDeclaration(_dec) = ##Any(_value);
  ##replace ##(_dec) {return ##(_value);}
 
-T h(int x) = new T(x);
+double sin(double x) = cos(x + pi/2);

@@ -1,0 +1,9 @@
+##Import "std.lola"
+##Find(SafeArgumentDeclaration) safe ##ArgumentDeclaration
+##Find(SafeArgumentDeclarationList) ##NoneOrMore ##Either ##ArgumentDeclaration ##or ##SafeArgumentDeclaration
+##Find ##Type(_type) ##Identifier(_name) (##SafeArgumentDeclarationList(_ls)) {##Any(_statements)}
+ ##replace ##(_type) ##(_name) (##("".join([l._type.name + " " + l._name.name for l in _ls]))) {##("".join(["Objects.requireNonNull(" + l._name.name + ");" for l in _ls]))##(_statements)}
+
+int f(safe Integer x, safe String s) {
+ return x + Integer.parse(s);
+}

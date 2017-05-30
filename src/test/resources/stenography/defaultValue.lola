@@ -9,6 +9,8 @@ elif __ in ['int', 'short', 'byte']:
  _return = '0'
 elif __ in ['double', 'float']:
  _return = '0.0'
+elif __ in ['boolean']:
+ _return = 'false'
 else:
  _return = 'null'
  }

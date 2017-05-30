@@ -1,0 +1,5 @@
+##Import "std.lola"
+##Find ##Expression(_exp1) ?. ##Either ##Identifier(_exp2) ##or ##Literal(_exp2)
+ ##replace Optional.of(##(_exp1)).map(##(_exp2)).orElse(null)
+
+f() ?. d1 ?. d2

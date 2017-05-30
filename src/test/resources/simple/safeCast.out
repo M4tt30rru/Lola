@@ -1,0 +1,1 @@
+Optional.ofNullable(f().g().h).filter(__ -> __ instanceof Dog).orElse(null)

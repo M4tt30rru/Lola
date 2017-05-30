@@ -1,0 +1,4 @@
+if (f() == null)
+ throw new BadTimeException();
+else
+ ;
