@@ -1,0 +1,4 @@
+void main(Integer argc, String argv) {
+  printf("Hello!");
+  do_main_silently(argc, argv);
+}

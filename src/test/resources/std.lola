@@ -12,5 +12,9 @@
  ##Either ##NoCommaExpression ##or (##Any)
 ##Find(ArgumentDeclaration)
  ##Type(_type) ##Identifier(_name)
+##Find(ArgumentDeclarationList)
+ ##NoneOrMore ##ArgumentDeclaration(_arg) ##separator ,
 ##Find(Block)
  { ##Any(_statements) }
+##Find(CollectionType)
+	##Either Set ##or List ##or Map

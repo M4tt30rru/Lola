@@ -1,0 +1,9 @@
+##Import "std.lola"
+##Find ##Any(_prot) <- ##Any(_mods) ##Type(_type) ##Identifier(_name);
+ ##run {
+_setter = 'set' + _name.name[0].upper() + _name.name[1:]
+ }
+ ##replace ##(_mods) ##(_type) ##(_name); ##(_prot) void ##(_setter) (##(_type) __) {this.##(_name) = __;}
+
+protected <- private Integer i;
+public <- protected transient String str;

@@ -1,0 +1,8 @@
+protected transient String str;
+private Integer i;
+protected void setI(Integer __) {
+ this.i = __;
+}
+public void setStr(String __) {
+ this.str = __;
+}

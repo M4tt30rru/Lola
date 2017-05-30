@@ -1,0 +1,6 @@
+public Coffee makeCoffee(Milk milk, List<Bean> beans) {
+ return wife.makeIt(milk, beans);
+}
+public void takeTrash(Bag bag) {
+ husband.throwIt(bag);
+}

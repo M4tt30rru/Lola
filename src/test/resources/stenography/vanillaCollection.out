@@ -1,0 +1,1 @@
+private transient Map<X, Y> m = new HashMap<>();

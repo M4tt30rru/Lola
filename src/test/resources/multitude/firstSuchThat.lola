@@ -1,0 +1,5 @@
+##Import "std.lola"
+##Find first ##Expression(_exp) s.t. ##Expression(_filter);
+ ##replace (##(_exp)).stream().filter(##(_filter)).findFirst();
+
+first f() s.t. i -> i % 2 == 0;

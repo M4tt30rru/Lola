@@ -28,6 +28,6 @@ public class $Literal extends RegExpKeyword {
 
 	@Override
 	public RegExp toRegExp() {
-		return new Atomic.Literal(snippet.token.text);
+		return new Atomic.Literal(snippet == null ? "(dummy)" : snippet.token.text);
 	}
 };

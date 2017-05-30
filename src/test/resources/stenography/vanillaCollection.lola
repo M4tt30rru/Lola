@@ -1,0 +1,5 @@
+##Import "std.lola"
+##Find ##Any(_mods) ##CollectionType(_col)<##Any(_gen)> ##Identifier(_name) = empty;
+ ##replace ##(_mods) ##(_col)<##(_gen)> ##(_name) = new ##('HashSet' if _col.name.strip() == 'Set' else 'HashMap' if _col.name.strip() == 'Map' else 'LinkedList')<>();
+
+private transient Map<X, Y> m = empty;
