@@ -1,164 +1,60 @@
 package il.ac.technion.cs.ssdl.lola.testcase.stenography;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.apache.commons.io.FilenameUtils;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import il.ac.technion.cs.ssdl.lola.parser.builders.$Import;
 import il.ac.technion.cs.ssdl.lola.util.auxz;
+@RunWith(Parameterized.class)
 public class Stenography {
-	@Test
-	public void stenography1() {
-		auxz.runStringTest("" //
-				+ "##Find(POpen) (\n" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find (\n" //
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose { ##Any(_c1) ##POpen # ##PClose ##Any(_c2) }\n" //
-				+ " ##replace (##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {##(_c1) (##(','.join(str(_arg) for _arg in _args))) ##(_c2)}\n" //
-				+ "void main(Integer argc, String argv) {\n" //
-				+ "  printf(\"Hello!\");\n" //
-				+ "  do_main_silently(#);\n" //
-				+ "}",
-				"" //
-						+ "void main(Integer argc, String argv) {\n" //
-						+ "  printf(\"Hello!\");\n" //
-						+ "  do_main_silently(argc, argv);\n" //
-						+ "}");
-	}
+	protected final String fileName;
 
 	@Test
-	public void stenography1b() {
-		auxz.runStringTest("" //
-				+ "##Find(POpen) (\n" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find ##POpen\n" //
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose { ##Any(_c1) ##POpen # ##PClose ##Any(_c2) }\n" //
-				+ " ##replace (##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {##(_c1) (##(','.join(str(_arg) for _arg in _args))) ##(_c2)}\n" //
-				+ "void main(Integer argc, String argv) {\n" //
-				+ "  printf(\"Hello!\");\n" //
-				+ "  do_main_silently(#);\n" //
-				+ "}",
-				"" //
-						+ "void main(Integer argc, String argv) {\n" //
-						+ "  printf(\"Hello!\");\n" //
-						+ "  do_main_silently(argc, argv);\n" //
-						+ "}");
+	public void compare() {
+		auxz.runResourceTest(fileName);
 	}
 
-	@Test
-	public void stenography1c() {
-		auxz.runStringTest("" //
-				+ "##Find(POpen) (\n" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find(CurlyOpen) {\n" //
-				+ "##Find(CurlyClose) }\n" //
-				+ "##Find ##POpen\n" //
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose ##CurlyOpen ##Any(_c1) ##POpen # ##PClose ##Any(_c2) ##CurlyClose\n" //
-				+ " ##replace (##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {##(_c1) (##(','.join(str(_arg) for _arg in _args))) ##(_c2)}\n" //
-				+ "void main(Integer argc, String argv) {\n" //
-				+ "  printf(\"Hello!\");\n" //
-				+ "  do_main_silently(#);\n" //
-				+ "}",
-				"" //
-						+ "void main(Integer argc, String argv) {\n" //
-						+ "  printf(\"Hello!\");\n" //
-						+ "  do_main_silently(argc, argv);\n" //
-						+ "}");
+	public Stenography(final String fileName, final String testName) {
+		this.fileName = fileName;
 	}
 
-	@Test
-	public void stenography1d() {
-		auxz.runStringTest("" //
-				+ "##Find(POpen) (\n" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find(CurlyOpen) {\n" //
-				+ "##Find(CurlyClose) }\n" //
-				+ "##Find ##POpen\n" // (
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose ##CurlyOpen ##Any(_c1) ##POpen # ##PClose ##Any(_c2) ##CurlyClose\n" //
-				+ " ##replace (##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {##(_c1) (##(','.join(str(_arg) for _arg in _args))) ##(_c2)}\n" //
-				+ "void main(Integer argc, String argv) {\n" //
-				+ "  printf(\"Hello!\");\n" //
-				+ "  do_main_silently(#);\n" //
-				+ "  printf(\"Hello (Again)!\");\n" //
-				+ "}",
-				"" //
-						+ "void main(Integer argc, String argv) {\n" //
-						+ "  printf(\"Hello!\");\n" //
-						+ "  do_main_silently(argc, argv);\n" //
-						+ "  printf(\"Hello (Again)!\");\n" //
-						+ "}");
+	@Parameters(name = "{index}. {1}") //
+	public static Collection<Object[]> data() {
+		final List<Object[]> $ = new LinkedList<>();
+		for (final String f : filesOf("simple", "stenography", "multitude"))
+			$.add(new Object[]{f, f});
+		$.sort(new Comparator<Object[]>() {
+			@Override
+			public int compare(Object[] o1, Object[] o2) {
+				return ((String) o1[0]).compareTo((String) o2[0]);
+			}
+		});
+		return $;
 	}
 
-	@Test
-	public void stenography2() {
-		auxz.runStringTest(
-				"" //
-						+ "##Find(ConstAss) :=:\n" //
-						+ "##Find ##Identifier(_type) ##Identifier(_name) ##ConstAss ##Any(_value);\n" // _type _name :=: _value
-						+ " ##replace static final ##(_type) ##(_name) = ##(_value);\n" //
-						+ "class Cat {\n" //
-						+ "  public Integer LEGS_COUNT :=: 4;\n" //
-						+ "  private Integer SOULS_COUNT :=: 9;\n" //
-						+ "  public void mew() {System.out.println(\"MEW\");}\n" //
-						+ "}",
-				"" //
-						+ "class Cat {\n" //
-						+ "  public static final Integer LEGS_COUNT = 4;\n" //
-						+ "  private static final Integer SOULS_COUNT = 9;\n" //
-						+ "  public void mew() {System.out.println(\"MEW\");}\n" //
-						+ "}\n");
+	@Before
+	public void setImportPrefix() {
+		$Import.setPrefix("src/test/resources/");
 	}
 
-	@Test
-	public void stenography3() {
-		auxz.runStringTest("" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" //
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose = ##Any(_value);\n" //
-				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {return ##(_value);}\n" //
-				+ "public Integer answer(Question q) = 42;", //
-				"public Integer answer(Question q) {return 42;}");
-	}
-
-	@Test
-	public void stenography4() {
-		auxz.runStringTest("" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _returnType
-																																			// _name
-																																			// (type
-																																			// _arg,
-																																			// type_arg)
-																																			// =
-																																			// throws
-																																			// _value
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose = throws ##Any(_value);\n" //
-				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {throw new ##(_value)();}\n" //
-				+ "public Coffe makeCoffe(Milk milk, List beans) = throws UnsupportedOperationException;\n",
-				"" //
-						+ "public Coffe makeCoffe(Milk milk, List beans) {throw new UnsupportedOperationException();}");
-	}
-
-	@Test
-	public void stenography5() {
-		auxz.runStringTest("" //
-				+ "##Find(PClose) )\n" //
-				+ "##Find(Arrow) ->\n" //
-				+ "##Find ##Identifier(_returnType) ##Identifier(_name) (\n" // _
-				+ " ##NoneOrMore ##Identifier(_type) ##Identifier(_arg)\n" //
-				+ "  ##separator ,\n" //
-				+ " ##PClose ##Arrow ##Any(_delegator);\n" //
-				+ " ##replace ##(_returnType) ##(_name)(##(','.join([_type.name + ' ' + _arg.name for _type, _arg in zip(_types, _args)]))) {return ##(_delegator)(##(','.join([_arg.name for _arg in _args])));}\n" //
-				+ "public Coffee makeCoffee(Milk milk, List beans) -> wife.make;\n",
-				"" //
-						+ "public Coffee makeCoffee(Milk milk, List beans) {return wife.make(milk, beans);}");
+	private static Collection<String> filesOf(String... directories) {
+		final Set<String> $ = new HashSet<>();
+		for (final String d : directories)
+			$.addAll(Arrays.stream(new File(ClassLoader.getSystemResource(d).getFile()).listFiles())
+					.map(f -> FilenameUtils.removeExtension(d + "/" + f.getName())).collect(Collectors.toList()));
+		return $;
 	}
 }
