@@ -1,0 +1,9 @@
+int f(int a, int b) {
+ return f(a, b, 1, a+b);
+}
+int f(int a, int b, int c) {
+ return f(a, b, c, a+b);
+}
+int f(int a, int b, int c, int d) {
+ return a + b * c - d;
+}

@@ -1,0 +1,9 @@
+##Import "std.lola"
+##Find ##Any(_prot) -> ##Any(_mods) ##Type(_type) ##Identifier(_name);
+ ##run {
+_getter = 'get' + _name.name[0].upper() + _name.name[1:]
+ }
+ ##replace ##(_mods) ##(_type) ##(_name); ##(_prot) ##(_type) ##(_getter) () {return this.##(_name);}
+
+protected -> private Integer i;
+public -> protected transient String str;

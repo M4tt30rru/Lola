@@ -1,0 +1,8 @@
+protected transient String str;
+private Integer i;
+protected Integer getI() {
+ return this.i;
+}
+public String getStr() {
+ return this.str;
+}
