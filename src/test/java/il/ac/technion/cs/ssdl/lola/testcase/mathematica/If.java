@@ -103,6 +103,42 @@ public class If {
 		auxz.runStringTest(s, result);
 	}
 	
+//	If[condition,t,f,u]
+//			gives u if condition evaluates to neither True nor False.
+	
+	@Test
+	public void if7() {
+		String s = ""
+							 + "##Find(NoCommasExpression)\n" //
+							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
+							 + "##Find(Expression)\n" //
+							 + "	##NoCommasExpression\n" //
+							 + "##Find if[##Expression(_cond),##Identifier(_t),##Identifier(_f),##Identifier(_u)];\n " //
+							 + "	##replace if(##(_cond) != null) if(##(_cond)) return ##(_t); else return ##(_f); else return ##(_u);\n"
+							 + "if[cond,t,f,u];"; 
+		String result = "if(cond != null) if (cond)  return t;  else  return f; else return u;\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
+	public void if8() {
+		String s = ""
+							 + "##Find(NoCommasExpression)\n" //
+							 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
+							 + "##Find(Expression)\n" //
+							 + "	##NoCommasExpression\n" //
+							 + "##Find if[##Expression(_cond),##Identifier(_t),##Identifier(_f),##Identifier(_u)];\n " //
+							 + "	##replace if(##(_cond) != null) if(##(_cond)) return ##(_t); else return ##(_f); else return ##(_u);\n"
+							 + "public foo(){\n"
+							 + "if[cond,t,f,u];\n"
+							 + "}"; 
+		String result = "public foo(){"
+				+ "if(cond != null) if (cond)  return t;  else  return f; else return u;\n"
+				+ "}";
+		auxz.runStringTest(s, result);
+	}
+
+
 	
 	
 	@SuppressWarnings("unused")
