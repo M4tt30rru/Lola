@@ -1,0 +1,3 @@
+T<String> f(int x) {
+ return new T<String>(x);
+}

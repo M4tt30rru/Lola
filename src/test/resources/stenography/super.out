@@ -1,0 +1,3 @@
+T(int x, Double y) {
+ super(x, y);
+}
