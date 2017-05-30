@@ -1,0 +1,7 @@
+##Import "std.lola"
+##Find for (##Any(_loop) | ##Expression(_filter)) { ##Any(_statements) }
+ ##replace for (##(_loop)) {if (!(##(_filter))) continue; ##(_statements)}
+
+for (final Integer i : nums() | i % 2 == 0) {
+	f(i);
+}

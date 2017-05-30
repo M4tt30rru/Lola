@@ -9,7 +9,19 @@ else:
  _type = 'double'
  }
  ##replace public static final ##(_type) ##(_name) = ##(_value);
+##Find
+ const ##Identifier(_name) = ##Any(_value);
+ ##run {
+print _value.name
+if _value.name == 'true' or _value.name == 'false':
+ _type = 'boolean'
+else:
+ _type = 'Object'
+ }
+ ##replace public static final ##(_type) ##(_name) = ##(_value);
 
+const o = new O();
+const w = true;
 const x = 1;
 const y = "1";
 const z = 1.0;

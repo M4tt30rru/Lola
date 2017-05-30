@@ -1,0 +1,56 @@
+##Import "std.lola"
+##Find for (##Identifier(_i) : ##Literal(_from) .. ##Literal(_to)) ##Block(_block)
+ ##run {
+if isinstance(_from, int):
+ _type = 'int'
+elif isinstance(_from, long):
+ _type = 'long'
+else:
+ _type = 'double'
+ }
+ ##replace for (##(_type) ##(_i) = ##(_from) ; ##(_i) <= ##(_to) ; ++##(_i)) ##(_block)
+##Find for (##Identifier(_i) : .. ##Literal(_to)) ##Block(_block)
+ ##run {
+if isinstance(_to, int):
+ _type = 'int'
+ _from = '0'
+elif isinstance(_to, long):
+ _type = 'long'
+ _from = '0'
+else:
+ _type = 'double'
+ _from = '0.0'
+ }
+ ##replace for (##(_type) ##(_i) = ##(_from) ; ##(_i) <= ##(_to) ; ++##(_i)) ##(_block)
+##Find for (##Identifier(_i) : ##Literal(_from) ..) ##Block(_block)
+ ##run {
+if isinstance(_from, int):
+ _type = 'int'
+elif isinstance(_from, long):
+ _type = 'long'
+else:
+ _type = 'double'
+ }
+ ##replace for (##(_type) ##(_i) = ##(_from) ;; ++##(_i)) ##(_block)
+##Find for (..) ##Block(_block)
+ ##replace for (;;) ##(_block)
+
+for (i : 1.0 .. 100.0) {
+ f();
+ g(i + 1);
+}
+
+for (i : .. 100.0) {
+ f();
+ g(i + 1);
+}
+
+for (i : 1.0 ..) {
+ f();
+ g(i + 1);
+}
+
+for (..) {
+ f();
+ g(1);
+}

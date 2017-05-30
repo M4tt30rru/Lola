@@ -34,7 +34,7 @@ public class Stenography {
 	@Parameters(name = "{index}. {1}") //
 	public static Collection<Object[]> data() {
 		final List<Object[]> $ = new LinkedList<>();
-		for (final String f : filesOf("simple", "stenography"))
+		for (final String f : filesOf("simple", "stenography", "multitude"))
 			$.add(new Object[]{f, f});
 		$.sort(new Comparator<Object[]>() {
 			@Override

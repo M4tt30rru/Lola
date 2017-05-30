@@ -1,0 +1,5 @@
+for (final Integer i : nums()) {
+ if (!(i%2==0))
+  continue;
+ f(i);
+}

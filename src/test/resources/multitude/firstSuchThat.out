@@ -1,0 +1,1 @@
+(f()).stream().filter(i -> i % 2 == 0).findFirst();
