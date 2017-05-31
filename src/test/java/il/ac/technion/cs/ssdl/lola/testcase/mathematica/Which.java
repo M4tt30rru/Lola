@@ -42,17 +42,14 @@ public class Which {
 				+ "##Find(TestExpression)\n"
 				+ "	##Expression(test), ##Identifier(i)\n"
 				+ "##Find Which[##TestExpression(te)];\n"
-//				+ " ##run{\n"
-//				+ "l = len(##(tes))\n"
-//				+ "}\n"
 				+ "	##replace if(##(te.test)) return ##(te.i);\n"
 				+ "Which[x>0,x];"; 
 		String result = "if(x>0) return x;";
 		auxz.runStringTest(s, result);
 	}
 	
-	public void which5() {
-		
+	@Test
+	public void which4() {
 		String s = ""
 				+ "##Find(NoCommaExpression)\n"
 				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
@@ -60,13 +57,57 @@ public class Which {
 				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
 				+ "##Find(TestExpression)\n"
 				+ "	##Expression(test), ##Identifier(i)\n"
-				+ "##Find Which[##TestExpression(te)];\n"
-//				+ " ##run{\n"
-//				+ "l = len(##(tes))\n"
-//				+ "}\n"
-				+ "	##replace if(##(te.test)) return ##(te.i);\n"
-				+ "Which[x>0,x];"; 
+				+ "##Find(TestExpressionList)\n"
+				+ "	##OneOrMore ##TestExpression ##separator ;\n"
+				+ "##Find Which[##TestExpressionList(tel)];\n"
+				+ " ##run{\n"
+				+ "tels = [str(te) for te in tels]\n"
+				+ "l=len(tels)\n"
+				+ "te=tels[0]\n"
+				+ "}\n"
+				+ "	##replace if(##(te.test)) return {##(te.i);##(l)};\n"
+				+ "Which[x>0,x;y>0,y;z>0,z];"; 
 		String result = "if(x>0) return x;";
+		auxz.runStringTest(s, result);
+	}
+
+	@Test
+	public void which5() {
+		String s = ""
+				+ "##Find(NoCommaExpression)\n"
+				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
+				+ "##Find(Expression)\n"
+				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
+				+ "##Find(TestExpression)\n"
+				+ "	##Expression(test), ##Identifier(i)\n"
+				+ "##Find(TestExpressionList)\n"
+				+ "	##OneOrMore ##TestExpression ##separator ;\n"
+				+ "##Find Which[##TestExpressionList(tel)];\n"
+				+ "	##replace "
+				+ "		##ForEach(tels)"
+				+ "			(if(##(_.test)) return ##(_.i))"
+				+ "\n"
+				+ "Which[x>0,x;y>0,y;z>0,z];"; 
+		String result = "if(x>0) return x;";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
+	public void which6() {
+		String s = ""
+				+ "##Find(NoCommaExpression)\n"
+				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
+				+ "##Find(Expression)\n"
+				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
+				+ "##Find(TestExpression)\n"
+				+ "	##Expression(test), ##Identifier(i)\n"
+				+ "##Find Which[##OneOrMore ##TestExpression(te) ##separator ;];\n"
+				+ "	##replace {\n"
+				+ "		##ForEach(tes)"
+				+ "			if(##(_.test)) return ##(_.i);\n"
+				+ "	}\n"
+				+ "Which[x>0,x;y>0,y;z>0,z];"; 
+		String result = "{if(x>0) return x; if(y>0) return y; if(z>0) return z;}";
 		auxz.runStringTest(s, result);
 	}
 	
@@ -82,13 +123,4 @@ public class Which {
 		
 	}
 	
-	@Test
-	public void do1() {
-		auxz.runStringTest(
-				"" //
-						+ "##Find do[##Any(_e),{##Identifier(_i),##Literal(_max)}];\n" //
-						+ " ##replace for(int ##(_i)=0;##(_i)<##(_max);++##(_i)) {##(_e);}\n" //
-						+ "do[f(i);g(i * 2),{i,100}];", //
-				"for(int i=0;i<100;++i) {f(i);g(i * 2);}");
-	}
 }
