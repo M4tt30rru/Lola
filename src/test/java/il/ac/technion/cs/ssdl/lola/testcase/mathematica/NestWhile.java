@@ -31,6 +31,26 @@ public class NestWhile {
 	}
 	
 	@Test
+	public void NestWhile1b() {
+		String s = "" //
+				+ "##Find(NoCommasExpression)\n" //
+				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n" //
+				+ "##Find(Expression)\n" //
+				+ " ##Either ##NoCommasExpression ##or (##Any)\n" //
+				+ "##Find(CompOperator)\n" //
+				+ "	##Either > ##or < ##or >= ##or <= ##or == ##or !=\n" //
+				+ "##Find	##Identifier(i) ##CompOperator(op) ##Literal(l);\n" //
+//				+	" ##run{\n" //
+//				+ "s = 'gt' if(str(op) == '>') else 'other'" //
+//				+ "}\n" //
+//				+ "	##replace ##(i) ##(op) ##(l);\n"
+				+ "	##replace ok;\n"
+				+ "res>0;\n"; 
+		String result = "re gt 0;";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
 	public void NestWhile2() {
 		String s = ""
 				+ "##Find(POpen) (\n"
@@ -41,13 +61,36 @@ public class NestWhile {
 				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
 				+ "##Find ##POpen ##Expression(x) ##PClose>##Expression(y);\n"
 				+ " ##run{\n"
-				+ "val='\"true\"' if x>0 else '\"false\"'\n"
+				+ "val='\"true\";' if eval(str(x))>0 else '\"false\";'\n"
 				+ "}\n"
 				+ "	##replace ##(val)\n"
 				+ "(1+3)>0;\n"
 				+ "(1-3)>0;\n"; 
 		String result = "\"true\";\n"
 				+ "\"false\";\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
+	public void NestWhile1c() {
+		String s = ""
+				+ "##Find(Minus) -\n"
+				+ "##Find(Plus) +\n"
+				+ "##Find(Addition)\n"
+				+ " ##Literal(x) ##Plus(p) ##Literal(y)\n"
+				+ "##Find(Subtraction)\n"
+				+ " ##Literal(x) ##Minus(m) ##Literal(y)\n"
+				+ " ##run{\n"
+				+ "if(p!=None):\n"
+				+ "	op = '+'\n"
+				+ "else:\n"
+				+ "	op = '-'\n"
+				+ "}\n"
+				+ "	##replace ##(x) ##(op) ##(y)\n"
+				+ "(1+3);\n"
+				+ "(1-3);\n"; 
+		String result = "1 operator 3;\n"
+				+ "1 operator 3;\n";
 		auxz.runStringTest(s, result);
 	}
 	
@@ -60,9 +103,11 @@ public class NestWhile {
 				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
 				+ "##Find(Expression)\n"
 				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
-				+ "##Find ##Literal(x) > ##Literal(y);\n"
+				+ "##Find(Minus) -\n"
+				+ "##Find ##Either ##Literal(x) ##or ##Minus(neg) ##Literal(x) > ##Literal(y);\n"
 				+ " ##run{\n"
-				+ "val='\"true\"' if x>0 else '\"false\"'\n"
+				+ "x = -x if neg != None else x\n"
+				+ "val='\"true\";' if eval(str(x))>0 else '\"false\";'\n"
 				+ "}\n"
 				+ "	##replace ##(val)\n"
 				+ "3>0;\n"
