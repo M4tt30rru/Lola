@@ -36,8 +36,11 @@ public class Nest {
 	@Test
 	public void nest2() {
 		String s = ""
-				 + "##Find Nest[##Identifier(_f), ##Identifier(_x) , ##Literal(_n)];\n"
-				 + "	##replace ##(_f);"
+				 + "##Find Nest[##Identifier(f), ##Identifier(x), ##Literal(n)];\n"
+				 + "	##run{\n"
+				 + "s = (str(f)+'(')*_n + str(x) + ')'*_n\n"
+				 + "}\n"
+				 + "	##replace ##(s);\n"
 				 + "Nest[f,x,3];"; 
 		String result = "f(f(f(x)));";
 		auxz.runStringTest(s, result);
