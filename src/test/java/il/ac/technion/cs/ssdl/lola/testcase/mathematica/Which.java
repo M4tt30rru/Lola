@@ -2,6 +2,7 @@ package il.ac.technion.cs.ssdl.lola.testcase.mathematica;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
@@ -19,7 +20,6 @@ public class Which {
 	
 	@Test
 	public void which1() {
-		
 		String s = ""
 				+ expression
 				+ "##Find(TestExpression)\n"
@@ -34,12 +34,57 @@ public class Which {
 				+ "		##If(n>2)\n"
 				+ "			##ForEach(tes[1:n-1])\n"
 				+ "				else if(##(_.test)) return ##(_.i);\n"
-//				+ "			##else\n"
 				+ "	}\n"
 				+ "Which[a==1,a;b==2,b];"; 
-		String result = "if(a==1) return a;\n else if(b==2) return b;\n";
+		String result = "{if(a==1) return a;\n else if(b==2) return b;\n}\n";
 		auxz.runStringTest(s, result);
 	}
+	
+	@Test
+	public void which1b() {
+		String s = ""
+				+ expression
+				+ "##Find(TestExpression)\n"
+				+ "	##Expression(test), ##Identifier(i)\n"
+				+ "##Find Which[##OneOrMore ##TestExpression(te) ##separator ;];\n"
+				+ "	##run{\n"
+				+ "n=len(tes)\n"
+				+ "}\n"
+				+ "	##replace {\n"
+				+ "		if(##(tes[0].test)) return ##(tes[0].i);\n"
+//				+ "		##If(n>2)\n"
+				+ "		##ForEach(tes[1:n])\n"
+				+ "			else if(##(_.test)) return ##(_.i);\n"
+//				+ "			##elseIf(n==2)\n"
+//				+ "				else if(##(tes[n-1].test)) return ##(tes[n-1].i);\n"
+				+ "	}\n"
+				+ "Which[a==1,a;b==2,b];"; 
+		String result = "{if(a==1) return a;\n else if(b==2) return b;\n}\n";
+		auxz.runStringTest(s, result);
+	}
+	
+	@Test
+	public void which1c() {
+		String s = ""
+				+ expression
+				+ "##Find(TestExpression)\n"
+				+ "	##Expression(test), ##Identifier(i)\n"
+				+ "##Find Which[##OneOrMore ##TestExpression(te) ##separator ;];\n"
+				+ "	##run{\n"
+				+ "n=len(tes)\n"
+				+ "}\n"
+				+ "	##replace {\n"
+				+ "		if(##(tes[0].test)) return ##(tes[0].i);\n"
+//				+ "		else if(##(tes[n-1].test)) return ##(tes[n-1].i);\n"
+//				+ "		##If(n>2)\n"
+				+ "		##ForEach(tes[1:n])\n"
+				+ "			else if(##(_.test)) return ##(_.i);\n"
+				+ "	}\n"
+				+ "Which[a==1,a;b==2,b;c==3,b];"; 
+		String result = "{if(a==1) return a;\n else if(b==2) return b;\n else if(c==3) return b;\n}\n";
+		auxz.runStringTest(s, result);
+	}
+
 	
 	@Test
 	public void which3() {
@@ -58,6 +103,7 @@ public class Which {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Ignore
 	@Test
 	public void which4() {
 		String s = ""
@@ -68,7 +114,7 @@ public class Which {
 				+ "##Find(TestExpression)\n"
 				+ "	##Expression(test), ##Identifier(i)\n"
 				+ "##Find(TestExpressionList)\n"
-				+ "	##OneOrMore ##TestExpression ##separator ;\n"
+				+ "	##OneOrMore ##TestExpression(te) ##separator ;\n"
 				+ "##Find Which[##TestExpressionList(tel)];\n"
 				+ " ##run{\n"
 				+ "tels = [str(te) for te in tels]\n"
@@ -80,7 +126,8 @@ public class Which {
 		String result = "if(x>0) return x;";
 		auxz.runStringTest(s, result);
 	}
-
+	
+	@Ignore
 	@Test
 	public void which5() {
 		String s = ""
@@ -91,11 +138,14 @@ public class Which {
 				+ "##Find(TestExpression)\n"
 				+ "	##Expression(test), ##Identifier(i)\n"
 				+ "##Find(TestExpressionList)\n"
-				+ "	##OneOrMore ##TestExpression ##separator ;\n"
+				+ "	##OneOrMore ##TestExpression(te) ##separator ;\n"
 				+ "##Find Which[##TestExpressionList(tel)];\n"
-				+ "	##replace "
-				+ "		##ForEach(tels)"
-				+ "			(if(##(_.test)) return ##(_.i))"
+				+ "	##run{\n"
+				+ "n=len(tel)\n"
+				+ "}\n"
+				+ "	##replace\n"
+				+ "		##ForEach(tel)"
+				+ "			(if(##(_.test)) return ##(_.i))\n"
 				+ "\n"
 				+ "Which[x>0,x;y>0,y;z>0,z];"; 
 		String result = "if(x>0) return x;";
