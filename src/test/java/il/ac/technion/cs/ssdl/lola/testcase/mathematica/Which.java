@@ -52,11 +52,8 @@ public class Which {
 				+ "}\n"
 				+ "	##replace {\n"
 				+ "		if(##(tes[0].test)) return ##(tes[0].i);\n"
-//				+ "		##If(n>2)\n"
 				+ "		##ForEach(tes[1:n])\n"
 				+ "			else if(##(_.test)) return ##(_.i);\n"
-//				+ "			##elseIf(n==2)\n"
-//				+ "				else if(##(tes[n-1].test)) return ##(tes[n-1].i);\n"
 				+ "	}\n"
 				+ "Which[a==1,a;b==2,b];"; 
 		String result = "{if(a==1) return a;\n else if(b==2) return b;\n}\n";
@@ -75,8 +72,6 @@ public class Which {
 				+ "}\n"
 				+ "	##replace {\n"
 				+ "		if(##(tes[0].test)) return ##(tes[0].i);\n"
-//				+ "		else if(##(tes[n-1].test)) return ##(tes[n-1].i);\n"
-//				+ "		##If(n>2)\n"
 				+ "		##ForEach(tes[1:n])\n"
 				+ "			else if(##(_.test)) return ##(_.i);\n"
 				+ "	}\n"

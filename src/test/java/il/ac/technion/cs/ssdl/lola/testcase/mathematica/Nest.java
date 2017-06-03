@@ -26,9 +26,7 @@ public class Nest {
 				 + ""
 				 + "}\n" //
 				 + "	##replace ##(fs);\n"
-//				 + "		##ForEach if(##(_t)>0) return ##(_t) else return -##(_t);\n"
 				 + "Nest[f,x,3];"; 
-//		System.out.println(s);
 		String result = "f(f(f(x)));";
 		auxz.runStringTest(s, result);
 	}
