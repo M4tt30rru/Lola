@@ -1,16 +1,20 @@
 package il.ac.technion.cs.ssdl.lola.testcase.mathematica;
 
-import static org.junit.Assert.*;
-
+import org.junit.Ignore;
 import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 
+/**
+ * 	NestWhile[f,expr,test]
+		starts with expr, then repeatedly applies f until applying test to the result no longer yields True.
+		NestWhile[Log, 100, # > 0 &]
+	  example: Log[Log[Log[100]]]
+ * @author matteo
+ *
+ */
+
 public class NestWhile {
-	//NestWhile[f,expr,test]
-	//		starts with expr, then repeatedly applies f until applying test to the result no longer yields True.
-	// NestWhile[Log, 100, # > 0 &]
-	// Log[Log[Log[100]]]
 	
 	String expression = "##Find(NoCommaExpression)\n"
 			+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
@@ -30,6 +34,7 @@ public class NestWhile {
 	
 //	NestWhile[f,expr,test,m]
 //			supplies the most recent m results as arguments for test at each step.
+	@Ignore
 	@Test
 	public void NestWhile02() {
 		String s = ""
@@ -44,6 +49,7 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Ignore
 	@Test
 	public void NestWhile1() {
 		String s = ""
@@ -59,6 +65,7 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Ignore
 	@Test
 	public void NestWhile1d() {
 		String s = ""
@@ -77,7 +84,7 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 
-	
+	@Ignore
 	@Test
 	public void NestWhile1b() {
 		String s = "" //
@@ -88,10 +95,6 @@ public class NestWhile {
 				+ "##Find(CompOperator)\n" //
 				+ "	##Either > ##or < ##or >= ##or <= ##or == ##or !=\n" //
 				+ "##Find	##Identifier(i) ##CompOperator(op) ##Literal(l);\n" //
-//				+	" ##run{\n" //
-//				+ "s = 'gt' if(str(op) == '>') else 'other'" //
-//				+ "}\n" //
-//				+ "	##replace ##(i) ##(op) ##(l);\n"
 				+ "	##replace ok;\n"
 				+ "res>0;\n"; 
 		String result = "re gt 0;";
@@ -119,6 +122,7 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Ignore
 	@Test
 	public void NestWhile1c() {
 		String s = ""
@@ -142,6 +146,7 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 	
+	@Ignore	
 	@Test
 	public void NestWhile3() {
 		String s = ""
