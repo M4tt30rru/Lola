@@ -28,13 +28,26 @@ public class NestWhile {
 		auxz.runStringTest(s, result);
 	}
 	
+//	NestWhile[f,expr,test,m]
+//			supplies the most recent m results as arguments for test at each step.
+	@Test
+	public void NestWhile02() {
+		String s = ""
+				+ expression
+				+ "##Find NestWhile[##Expression(f),##Expression(expr),##Expression(te),##Identifier(i)];\n"
+				+ "	##run{\n"
+				+ "}\n"
+				+ "	##replace List<T> l = new ArrayList<T>(); int n=0;"
+				+ "while(##(te)(##(expr))){ if(n<=m) l.add(##(f)(##(expr)));\n n++;\n"
+				+ "NestWhile[f,x+1,test,m];"; 
+		String result = "while(test(x+1))\n f(x+1);";
+		auxz.runStringTest(s, result);
+	}
+	
 	@Test
 	public void NestWhile1() {
 		String s = ""
-				+ "##Find(NoCommaExpression)\n"
-				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
-				+ "##Find(Expression)\n"
-				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
+				+ expression
 				+ "##Find(CompOperator)\n"
 				+ "	##Either > ##or < ##or >= ##or <= ##or == ##or !=\n"
 				+ "##Find(TestExpression)\n"
