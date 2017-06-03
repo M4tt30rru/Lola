@@ -12,6 +12,22 @@ public class NestWhile {
 	// NestWhile[Log, 100, # > 0 &]
 	// Log[Log[Log[100]]]
 	
+	String expression = "##Find(NoCommaExpression)\n"
+			+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
+			+ "##Find(Expression)\n"
+			+ " ##Either ##NoCommaExpression ##or (##Any)\n";
+	
+	@Test
+	public void NestWhile01() {
+		String s = ""
+				+ expression
+				+ "##Find NestWhile[##Expression(f),##Expression(expr),##Expression(te)];\n"
+				+ "	##replace while(##(te)(##(expr))) ##(f)(##(expr));\n"
+				+ "NestWhile[f,x+1,test];"; 
+		String result = "while(test(x+1))\n f(x+1);";
+		auxz.runStringTest(s, result);
+	}
+	
 	@Test
 	public void NestWhile1() {
 		String s = ""
@@ -24,11 +40,30 @@ public class NestWhile {
 				+ "##Find(TestExpression)\n"
 				+ "	##Identifier(i) ##CompOperator(op) ##Literal(l)\n"
 				+ "##Find NestWhile[##Expression(f),##Expression(expr),##TestExpression(te)];\n"
-				+ "	##replace do{##(t)=(f.name)(##(expr))}\nwhile(##(te.i)##(te.op)##(te.l))\n"
+				+ "	##replace do{##(te.i)=##(f)(##(expr))}\nwhile(##(te))\n"
 				+ "NestWhile[Log,100,res>0];"; 
 		String result = "do{res=Log(100)}\nwhile(res>0);";
 		auxz.runStringTest(s, result);
 	}
+	
+	@Test
+	public void NestWhile1d() {
+		String s = ""
+				+ "##Find(NoCommaExpression)\n"
+				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
+				+ "##Find(Expression)\n"
+				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
+				+ "##Find(CompOperator)\n"
+				+ "	##Either > ##or < ##or >= ##or <= ##or == ##or !=\n"
+				+ "##Find(TestExpression)\n"
+				+ "	##Identifier(i) ##CompOperator(op) ##Literal(l)\n"
+				+ "##Find NestWhile[##Expression(f),##Literal(expr),##TestExpression(te)];\n"
+				+ "	##replace do{##(te.i)=##(f.name)(##(expr))}\n 'while'(##te)\n"
+				+ "NestWhile[Log(),100,res>0];"; 
+		String result = "do{res=Log(100)}\nwhile(res>0);";
+		auxz.runStringTest(s, result);
+	}
+
 	
 	@Test
 	public void NestWhile1b() {
