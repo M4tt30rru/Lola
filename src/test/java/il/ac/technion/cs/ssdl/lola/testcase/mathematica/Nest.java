@@ -4,14 +4,18 @@ import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 
+/**
+ * 
+ * Testing lola for the Mathematica Nest command
+ * Nest[f,expr,n] 
+ * 	 example 
+ * 	 Nest[f, x, 3] 
+ * 	 f[f[f[x]]]
+ * @author matteo
+ *
+ */
+
 public class Nest {
-	
-	// Nest[f,expr,n]
-	// example
-	// Nest[f, x, 3]
-	// f[f[f[x]]]
-	
-	// f(f(f(x)))
 		
 	@Test
 	public void nest1() {

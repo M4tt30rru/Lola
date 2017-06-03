@@ -103,9 +103,6 @@ public class If {
 		auxz.runStringTest(s, result);
 	}
 	
-//	If[condition,t,f,u]
-//			gives u if condition evaluates to neither True nor False.
-	
 	@Test
 	public void if7() {
 		String s = ""
@@ -138,9 +135,6 @@ public class If {
 		auxz.runStringTest(s, result);
 	}
 
-
-	
-	
 	@SuppressWarnings("unused")
 	private class Foo {
 	

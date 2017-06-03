@@ -7,16 +7,28 @@ import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 
+/**
+ * 
+ * Testing lola for the Mathematica which command
+ * 
+ * This is how it works in Mathematica
+ * 
+ * Which[test1,value1,test2,value2,…]
+evaluates each of the testi in turn, returning the value of the valuei corresponding to the first one that yields True.
+a = 2; Which[a == 1, x, a == 2, b]
+ * 
+ * @author matteo
+ *
+ */
+
+
+
 public class Which {
 
 	String expression = "##Find(NoCommaExpression)\n"
 			+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
 			+ "##Find(Expression)\n"
 			+ " ##Either ##NoCommaExpression ##or (##Any)\n";
-	
-// Which[test1,value1,test2,value2,…]
-// evaluates each of the testi in turn, returning the value of the valuei corresponding to the first one that yields True.
-// a = 2; Which[a == 1, x, a == 2, b]
 	
 	@Test
 	public void which1() {
