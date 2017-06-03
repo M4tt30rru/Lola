@@ -127,7 +127,6 @@ public enum auxz {
 		try {
 			auxz.assertTEquals(result, auxz.list2string(parser.parse()));
 		} catch (final IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

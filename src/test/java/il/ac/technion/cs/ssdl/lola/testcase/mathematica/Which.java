@@ -7,6 +7,11 @@ import org.junit.Test;
 import il.ac.technion.cs.ssdl.lola.util.auxz;
 
 public class Which {
+
+	String expression = "##Find(NoCommaExpression)\n"
+			+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
+			+ "##Find(Expression)\n"
+			+ " ##Either ##NoCommaExpression ##or (##Any)\n";
 	
 // Which[test1,value1,test2,value2,…]
 // evaluates each of the testi in turn, returning the value of the valuei corresponding to the first one that yields True.
@@ -16,18 +21,23 @@ public class Which {
 	public void which1() {
 		
 		String s = ""
-				+ "##Find(NoCommaExpression)\n"
-				+ " ##Match ##Any ##exceptFor ##Any, ##Any\n"
-				+ "##Find(Expression)\n"
-				+ " ##Either ##NoCommaExpression ##or (##Any)\n"
+				+ expression
 				+ "##Find(TestExpression)\n"
-				+ "	##Match ##Expression(_f) , ##Identifier(_i)\n"
-				+ "##Find(TestExpressions)\n"
-				+ "	##OneOrMore ##TestExpression(_te) ##separator,\n"
-				+ "##Find Which[##TestExpressions(_tests)];\n"
-				+ "	##replace ##(_te);\n"
-				+ "Which[a == 1,x,a == 2, b];"; 
-		String result = "f(f(f(x)));";
+				+ "	##Expression(test), ##Identifier(i)\n"
+				+ "##Find Which[##OneOrMore ##TestExpression(te) ##separator ;];\n"
+				+ "	##run{\n"
+				+ "n=len(tes)\n"
+				+ "}\n"
+				+ "	##replace {\n"
+				+ "		if(##(tes[0].test)) return ##(tes[0].i);\n"
+				+ "		else if(##(tes[n-1].test)) return ##(tes[n-1].i);\n"
+				+ "		##If(n>2)\n"
+				+ "			##ForEach(tes[1:n-1])\n"
+				+ "				else if(##(_.test)) return ##(_.i);\n"
+//				+ "			##else\n"
+				+ "	}\n"
+				+ "Which[a==1,a;b==2,b];"; 
+		String result = "if(a==1) return a;\n else if(b==2) return b;\n";
 		auxz.runStringTest(s, result);
 	}
 	
@@ -153,19 +163,6 @@ public class Which {
 				+ "Which[f(),x;g(),y;h(),z];"; 
 		String result = "{if(f()) return x; if(g()) return y; if(h()) return z;}";
 		auxz.runStringTest(s, result);
-	}
-
-	
-	@Test
-	public void which2() {
-		
-		String s = ""
-				+ "##Find which ##Literal(_l);\n"
-				+ "	##replace W ##(_l);\n"
-				+ "which 1;"; 
-		String result = "W 1;";
-		auxz.runStringTest(s, result);
-		
 	}
 	
 }
