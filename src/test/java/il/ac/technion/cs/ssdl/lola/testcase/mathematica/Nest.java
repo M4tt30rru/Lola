@@ -20,12 +20,12 @@ public class Nest {
 				 + "	##Match ##Any ##exceptFor ##Any, ##Any\n" //
 				 + "##Find(Expression)\n" //
 				 + "	##NoCommasExpression\n" //
-				 + "##Find Nest[##Identifier(_f), ##Identifier(_expr) , ##Literal(_n)];\n"
+				 + "##Find Nest[##Identifier(f), ##Identifier(expr) , ##Literal(n)];\n"
 				 + "	##run {\n"
-				 + "_fs = str(_expr) # (_f.name)\n"
-//				 + "fs = [str(##(_f))+'(' for _f in range(##(_n))]\n"
+				 + "fs = ''.join([(str(f) + '(') for i in range(n)])+ 'x' + ''.join([')' for i in range(n)])\n"
+				 + ""
 				 + "}\n" //
-				 + "	##replace ##(_f);"
+				 + "	##replace ##(fs);\n"
 //				 + "		##ForEach if(##(_t)>0) return ##(_t) else return -##(_t);\n"
 				 + "Nest[f,x,3];"; 
 //		System.out.println(s);
@@ -38,7 +38,7 @@ public class Nest {
 		String s = ""
 				 + "##Find Nest[##Identifier(f), ##Identifier(x), ##Literal(n)];\n"
 				 + "	##run{\n"
-				 + "s = (str(f)+'(')*_n + str(x) + ')'*_n\n"
+				 + "s = (str(f)+'(')*n + str(x) + ')'*n\n"
 				 + "}\n"
 				 + "	##replace ##(s);\n"
 				 + "Nest[f,x,3];"; 
@@ -50,7 +50,7 @@ public class Nest {
 	public void nest3() {
 		String s = ""
 				 + "##Find Nest[##Identifier(_f)];\n"
-				 + "	##replace ##(_f)(x);"
+				 + "	##replace ##(_f)(x);\n"
 				 + "Nest[f];"; 
 		String result = "f(x);";
 		auxz.runStringTest(s, result);
@@ -60,7 +60,7 @@ public class Nest {
 	public void nest4() {
 		String s = ""
 				 + "##Find if[##Literal(_n)];\n"
-				 + "	##replace ##(_n);"
+				 + "	##replace ##(_n);\n"
 				 + "if[3];"; 
 		String result = "3;";
 		auxz.runStringTest(s, result);
