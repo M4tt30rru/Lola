@@ -1,0 +1,5 @@
+##Find do[##Any(_e),{##Identifier(_i),##Literal(_min),##Literal(_max),##Literal(_step)}];
+ ##replace for(int ##(_i)=##(_min);##(_i)<=##(_max);##(_i)+=##(_step)) {##(_e);}
+
+do[f(i);g(i * 2),{i,10,100,5}];
+ 

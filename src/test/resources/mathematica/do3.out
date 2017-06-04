@@ -1,0 +1,1 @@
+for(MyObject o:myOs) {f(o);}

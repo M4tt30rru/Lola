@@ -1,0 +1,4 @@
+public void foo(){
+for(int _i0=0;_i0<5;++_i0) {f();} 
+for(int _i1=0;_i1<15;++_i1) {g();}
+}

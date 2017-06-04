@@ -1,0 +1,4 @@
+##Find do[##Any(_e),{##Any(_i),##Any(_list)}];
+ ##replace for(##(_i):##(_list)) {##(_e);}
+
+do[f(o),{MyObject o,myOs}];
