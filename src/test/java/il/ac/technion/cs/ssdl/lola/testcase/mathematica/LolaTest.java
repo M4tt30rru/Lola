@@ -1,7 +1,5 @@
 package il.ac.technion.cs.ssdl.lola.testcase.mathematica;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import il.ac.technion.cs.ssdl.lola.util.auxz;
