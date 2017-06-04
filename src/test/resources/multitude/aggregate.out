@@ -1,0 +1,1 @@
+(f()).stream().filter(x -> x % 2 == 0).reduce(0, (x, y) -> x + y);

@@ -1,0 +1,4 @@
+##Find let ##Identifier(_x) <- ##Literal(_i) in ##Identifier(_col);
+ ##replace ##(_x) = ##(_col)[##(_i)];
+
+let x <- 4 in array;

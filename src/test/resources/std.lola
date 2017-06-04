@@ -6,10 +6,6 @@
  ##NoneOrMore []
 ##Find(MethodDeclaration)
  ##Type(_type) ##Identifier(_name) (##Any(_args))
-##Find(NoCommaExpression)
- ##Match ##Any ##exceptFor ##Any, ##Any
-##Find(Expression)
- ##Either ##NoCommaExpression ##or (##Any)
 ##Find(ArgumentDeclaration)
  ##Type(_type) ##Identifier(_name)
 ##Find(ArgumentDeclarationList)
@@ -17,4 +13,27 @@
 ##Find(Block)
  { ##Any(_statements) }
 ##Find(CollectionType)
-	##Either Set ##or List ##or Map
+ ##Either Set ##or List ##or Map
+
+##Find(ExpressionSeparations)
+ ##Either , ##or ;
+##Find(expressionUnsafe)
+ ##Match ##Any ##exceptFor ##Any ##ExpressionSeparations ##Any
+##Find(expressionSafe)
+ ##Match ##Identifier
+##Find(Primary)
+ ##Either this ##or super ##or ##Literal ##or ##Identifier ##or ##PrimitiveType .class ##or ##Type .class ##or (##expressionUnsafe)
+##Find(CommaSeperated)
+ ##Match ##Any ##exceptFor ##Any , ##Any
+##Find(CommaSeperatedList)
+ ##NoneOrMore ##CommaSeperated ##separator ,
+##Find(PossiblePostfixes)
+ ##Either ++ ##or --
+##Find(PossiblePrefixes)
+ ##Either ++ ##or -- ##or + ##or - ##or ~ ##or !
+##Find(PossibleInfixes)
+ ##Either * ##or / ##or % ##or - ##or + ##or << ##or >>> ##or >> ##or < ##or > ##or <= ##or >= ##or == ##or != ##or & ##or ^ ##or | ##or && ##or || ##or += ##or -= ##or *= ##or /= ##or &= ##or |= ##or ^= ##or >>= ##or >>>= ##or <<= ##or %=
+##Find(ExpressionUnsafe)
+ ##Either ##Primary ##or ##expressionUnsafe . ##expressionUnsafe ##or ##Identifier .this ##or ##expressionUnsafe . <##Any> ##or ##expressionUnsafe [ ##expressionUnsafe ] ##or ##expressionSafe ( ##CommaSeperatedList ) ##or new ##Type ( ##Any ) ##or new ##Type { ##Any } ##or new ##Type ( ##Any ) { ##Any } ##or ( ##Type ) ##expressionUnsafe ##or ##expressionUnsafe ##PossiblePostfixes ##or ##PossiblePrefixes ##expressionUnsafe ##or ##expressionUnsafe ##PossibleInfixes ##expressionUnsafe ##or ##expressionUnsafe instanceof ##Type ##or ##expressionUnsafe ? ##expressionUnsafe : ##expressionUnsafe
+##Find(Expression)
+ ##Match ##ExpressionUnsafe ##exceptFor new
