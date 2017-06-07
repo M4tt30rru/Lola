@@ -1,39 +1,39 @@
 ##Import "std.lola"
-##Find for (##Identifier(_i) : ##Literal(_from) .. ##Literal(_to)) ##Block(_block)
+##Find for (##Identifier(j) : ##Literal(start) .. ##Literal(end)) ##Block(block)
  ##run {
-if isinstance(_from, int):
- _type = 'int'
-elif isinstance(_from, long):
- _type = 'long'
+if isinstance(start, int):
+ type = 'int'
+elif isinstance(start, long):
+ type = 'long'
 else:
- _type = 'double'
+ type = 'double'
  }
- ##replace for (##(_type) ##(_i) = ##(_from) ; ##(_i) <= ##(_to) ; ++##(_i)) ##(_block)
-##Find for (##Identifier(_i) : .. ##Literal(_to)) ##Block(_block)
+ ##replace for (##(type) ##(j) = ##(start) ; ##(j) <= ##(end) ; ++##(j)) ##(block)
+##Find for (##Identifier(j) : .. ##Literal(end)) ##Block(block)
  ##run {
-if isinstance(_to, int):
- _type = 'int'
- _from = '0'
-elif isinstance(_to, long):
- _type = 'long'
- _from = '0'
+if isinstance(end, int):
+ type = 'int'
+ start = '0'
+elif isinstance(end, long):
+ type = 'long'
+ start = '0'
 else:
- _type = 'double'
- _from = '0.0'
+ type = 'double'
+ start = '0.0'
  }
- ##replace for (##(_type) ##(_i) = ##(_from) ; ##(_i) <= ##(_to) ; ++##(_i)) ##(_block)
-##Find for (##Identifier(_i) : ##Literal(_from) ..) ##Block(_block)
+ ##replace for (##(type) ##(j) = ##(start) ; ##(j) <= ##(end) ; ++##(j)) ##(block)
+##Find for (##Identifier(j) : ##Literal(start) ..) ##Block(block)
  ##run {
-if isinstance(_from, int):
- _type = 'int'
-elif isinstance(_from, long):
- _type = 'long'
+if isinstance(start, int):
+ type = 'int'
+elif isinstance(start, long):
+ type = 'long'
 else:
- _type = 'double'
+ type = 'double'
  }
- ##replace for (##(_type) ##(_i) = ##(_from) ;; ++##(_i)) ##(_block)
-##Find for (..) ##Block(_block)
- ##replace for (;;) ##(_block)
+ ##replace for (##(type) ##(j) = ##(start) ;; ++##(j)) ##(block)
+##Find for (..) ##Block(block)
+ ##replace for (;;) ##(block)
 
 for (i : 1.0 .. 100.0) {
  f();

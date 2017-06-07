@@ -1,9 +1,9 @@
 ##Import "std.lola"
-##Find(CandidatesSequence) of ( ##OneOrMore ##Expression(_exp) ##separator , ) -> ##Expression(_val),
-##Find(Candidates) ##OneOrMore ##CandidatesSequence(_cand)
-##Find when (##Expression(_filter)) ##Candidates otherwise ##Expression(_def);
- ##replace ##ForEach(_cands) ##("Arrays.asList(" + ",".join([e.name for e in _._exps]) + ").stream().allMatch(" + _filter.name + ")?" + _._val.name + ":")
-  ##(_def);
+##Find(CandidatesSequence) of ( ##OneOrMore ##Expression(exp) ##separator , ) -> ##Expression(val),
+##Find(Candidates) ##OneOrMore ##CandidatesSequence(cand)
+##Find when (##Expression(filter)) ##Candidates otherwise ##Expression(dflt);
+ ##replace ##ForEach(cands) ##("Arrays.asList(" + ",".join([e.name for e in _.exps]) + ").stream().allMatch(" + filter.name + ")?" + _.val.name + ":")
+  ##(dflt);
 
 Integer i = when (a -> a.isFine())
  of (x, y(), Z.z) -> 3,

@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find aggregate ##Expression(_exp) s.t. ##Expression(_filter) with ##Expression(_id), ##Expression(_red);
- ##replace (##(_exp)).stream().filter(##(_filter)).reduce(##(_id), ##(_red));
+##Find aggregate ##Expression(exp) s.t. ##Expression(filter) with ##Expression(id), ##Expression(red);
+ ##replace (##(exp)).stream().filter(##(filter)).reduce(##(id), ##(red));
 
 aggregate f() s.t. x -> x % 2 == 0 with 0, (x, y) -> x + y;

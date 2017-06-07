@@ -1,1 +1,1 @@
-Optional.of(Optional.of(f()).map(d1).orElse(null)).map(d2).orElse(null)
+Optional.of(f()).map(d).orElse(null)

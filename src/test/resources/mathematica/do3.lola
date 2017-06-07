@@ -1,4 +1,4 @@
-##Find do[##Any(_e),{##Any(_i),##Any(_list)}];
- ##replace for(##(_i):##(_list)) {##(_e);}
+##Find do[##Any(e),{##Any(j),##Any(items)}];
+ ##replace for(##(j):##(items)) {##(e);}
 
 do[f(o),{MyObject o,myOs}];

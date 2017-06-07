@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find ##Expression(_exp) || return ##Expression(_def);
- ##replace if (!(##(_exp))) return ##(_def); else ;
+##Find ##Expression(exp) || return ##Expression(dflt);
+ ##replace if (!(##(exp))) return ##(dflt); else ;
 
 f() != null || return "f returned null!";

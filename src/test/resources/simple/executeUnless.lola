@@ -1,6 +1,6 @@
 ##Import "std.lola"
-##Find execute ##Any(_code) unless ##Expression(_cond);
- ##replace if (!(##(_cond))) new Runnable(() -> {##(_code)}).run();
+##Find execute ##Any(code) unless ##Expression(cond);
+ ##replace if (!(##(cond))) new Runnable(() -> {##(code)}).run();
 
 execute
  f().g().run();

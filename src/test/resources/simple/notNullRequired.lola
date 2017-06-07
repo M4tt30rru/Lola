@@ -1,8 +1,8 @@
 ##Import "std.lola"
 ##Find(SafeArgumentDeclaration) safe ##ArgumentDeclaration
-##Find(SafeArgumentDeclarationList) ##NoneOrMore ##Either ##ArgumentDeclaration(_dec) ##or ##SafeArgumentDeclaration(_dec) ##separator ,
-##Find ##Type(_type) ##Identifier(_name) (##SafeArgumentDeclarationList(_ls)) {##Any(_statements)}
- ##replace ##(_type) ##(_name) (##(",".join([l._type.name + " " + l._name.name for l in _ls._decs]))) {##("".join(["Objects.requireNonNull(" + l._name.name + ");" for l in _ls._decs]))##(_statements)}
+##Find(SafeArgumentDeclarationList) ##NoneOrMore ##Either ##ArgumentDeclaration(dec) ##or ##SafeArgumentDeclaration(dec) ##separator ,
+##Find ##Type(t) ##Identifier(n) (##SafeArgumentDeclarationList(ls)) {##Any(statements)}
+ ##replace ##(t) ##(n) (##(",".join([l.t.name + " " + l.n.name for l in ls.decs]))) {##("".join(["Objects.requireNonNull(" + l.n.name + ");" for l in ls.decs]))##(statements)}
 
 int f(safe Integer x, safe String s) {
  return x + Integer.parse(s);

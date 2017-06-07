@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find ##Expression(_exp) !! ##Identifier(_exc);
- ##replace if (##(_exp) == null) throw new ##(_exc)(); else ;
+##Find ##Expression(exp) !! ##Identifier(exc);
+ ##replace if (##(exp) == null) throw new ##(exc)(); else ;
 
 f() !! BadTimeException;

@@ -1,12 +1,12 @@
-##Find do[##Any(_e),{##Literal(_times)}];
+##Find do[##Any(e),{##Literal(times)}];
  ##run {
 if 'x' not in locals():
  x=0
 else:
  x=x+1
-_doName='_i'+str(x)
+doName='_i'+str(x)
  }
- ##replace for(int ##(_doName)=0;##(_doName)<##(_times);++##(_doName)) {##(_e);}
+ ##replace for(int ##(doName)=0;##(doName)<##(times);++##(doName)) {##(e);}
 
 do[f(),{5}];
 do[g(),{15}];

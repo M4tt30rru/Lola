@@ -1,17 +1,17 @@
 ##Find(PrimitiveType)
  ##Either boolean ##or byte ##or char ##or short ##or int ##or long ##or float ##or double ##or void
 ##Find(Type)
- ##Either ##Identifier(_name) ##or ##PrimitiveType(_name)
+ ##Either ##Identifier(n) ##or ##PrimitiveType(n)
  ##Optional <##Any>
  ##NoneOrMore []
 ##Find(MethodDeclaration)
- ##Type(_type) ##Identifier(_name) (##Any(_args))
+ ##Type(t) ##Identifier(n) (##Any(args))
 ##Find(ArgumentDeclaration)
- ##Type(_type) ##Identifier(_name)
+ ##Type(t) ##Identifier(n)
 ##Find(ArgumentDeclarationList)
- ##NoneOrMore ##ArgumentDeclaration(_arg) ##separator ,
+ ##NoneOrMore ##ArgumentDeclaration(arg) ##separator ,
 ##Find(Block)
- { ##Any(_statements) }
+ { ##Any(statements) }
 ##Find(CollectionType)
  ##Either Set ##or List ##or Map
 

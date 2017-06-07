@@ -1,4 +1,4 @@
-##Find do[##Any(_e),{##Identifier(_i),##Literal(_max)}];
- ##replace for(int ##(_i)=0;##(_i)<##(_max);++##(_i)) {##(_e);}
+##Find do[##Any(e),{##Identifier(j),##Literal(max)}];
+ ##replace for(int ##(j)=0;##(j)<##(max);++##(j)) {##(e);}
 
 do[f(i);g(i * 2),{i,100}];
