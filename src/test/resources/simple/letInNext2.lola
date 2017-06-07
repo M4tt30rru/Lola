@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find let ##Identifier(x) <- ##Literal(j) in ##Identifier(col);
+##Find #let ##Identifier(x) <- ##Literal(j) #in ##Identifier(col);
  ##replace ##(x) = ##(col).get(##(j));
 
-let x <- 4 in list;
+#let x <- 4 #in list;

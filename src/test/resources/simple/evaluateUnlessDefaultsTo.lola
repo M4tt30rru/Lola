@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find evaluate ##Any(val) unless ##Expression(cond) default ##Expression(dflt)
+##Find #evaluate ##Any(val) #unless ##Expression(cond) #default ##Expression(dflt)
  ##replace ##(cond) ? ##(val) : ##(dflt)
 
-f(evaluate h unless b default g())
+f(#evaluate h #unless b #default g())

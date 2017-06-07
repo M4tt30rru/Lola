@@ -1,8 +1,8 @@
 ##Import "std.lola"
-##Find execute ##Any(code) unless ##Expression(cond);
+##Find #execute ##Any(code) #unless ##Expression(cond);
  ##replace if (!(##(cond))) new Runnable(() -> {##(code)}).run();
 
-execute
+#execute
  f().g().run();
  note("DONE");
-unless isBad().get();
+#unless isBad().get();

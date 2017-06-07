@@ -1,5 +1,5 @@
 ##Import "std.lola"
-##Find ##Expression(exp) s.t. ##Expression(filter);
+##Find ##Expression(exp) #st ##Expression(filter);
  ##replace (##(exp)).stream().filter(##(filter)).collect(Collectors.toList());
 
-f() s.t. i -> i % 2 == 0;
+f() #st i -> i % 2 == 0;
