@@ -1,8 +1,8 @@
 ##Import "std.lola"
 ##Find(DefaultableArgumentDeclaration)
- ##Either ##ArgumentDeclaration(_dec) ##or ##ArgumentDeclaration(_dec) = ##Expression(_value)
-##Find ##Type (_type) ##Identifier(_name) (##NoneOrMore ##DefaultableArgumentDeclaration(_dec) ##separator ,) ##Block(_block)
- ##replace ##ForEach([i for i, d in enumerate(_decs) if hasattr(d, '_value')] + [len(_decs)]) ##(_type) ##(_name) (##(','.join(d._dec.name for d in _decs[:_]))) ##(_block.name if _ == len(_decs) else '{return ' + _name.name + '(' + ','.join(d._dec._name.name for d in _decs[:_]) + ',' + ','.join(d._value.name for d in _decs[_:]) + ');}')
+ ##Either ##ArgumentDeclaration(dec) ##or ##ArgumentDeclaration(dec) = ##Expression(value)
+##Find ##Type (t) ##Identifier(n) (##NoneOrMore ##DefaultableArgumentDeclaration(dec) ##separator ,) ##Block(block)
+ ##replace ##ForEach([i for i, d in enumerate(decs) if hasattr(d, 'value')] + [len(decs)]) ##(t) ##(n) (##(','.join(d.dec.name for d in decs[:_]))) ##(block.name if _ == len(decs) else '{return ' + n.name + '(' + ','.join(d.dec.n.name for d in decs[:_]) + ',' + ','.join(d.value.name for d in decs[_:]) + ');}')
 
 int f(int a, int b, int c=1, int d=a+b) {
  return a + b * c - d;

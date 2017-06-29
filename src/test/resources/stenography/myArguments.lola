@@ -1,6 +1,6 @@
 ##Import "std.lola"
-##Find ##Type(_type) ##Identifier(_name)(##ArgumentDeclarationList) { ##Any(_c1) (#) ##Any(_c2) }
- ##replace ##(_type) ##(_name)(##(','.join([_arg._type.name + ' ' + _arg._name.name for _arg in _args]))){##(_c1) (##(','.join(str(_arg._name.name) for _arg in _args))) ##(_c2)}
+##Find ##Type(t) ##Identifier(n)(##ArgumentDeclarationList) { ##Any(c1) (#) ##Any(c2) }
+ ##replace ##(t) ##(n)(##(','.join([arg.t.name + ' ' + arg.n.name for arg in args]))){##(c1) (##(','.join(str(arg.n.name) for arg in args))) ##(c2)}
 
 void main(Integer argc, String argv) {
   printf("Hello!");

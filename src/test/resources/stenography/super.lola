@@ -1,6 +1,6 @@
 ##Import "std.lola"
 ##Find
- ##Identifier(_name)(##ArgumentDeclarationList(_l)) -> super;
- ##replace ##(_name) (##(_l)) {super(##(",".join(a._name.name for a in _l._args)));}
+ ##Identifier(n)(##ArgumentDeclarationList(l)) -> super;
+ ##replace ##(n) (##(l)) {super(##(",".join(a.n.name for a in l.args)));}
 
 T(int x, Double y) -> super;

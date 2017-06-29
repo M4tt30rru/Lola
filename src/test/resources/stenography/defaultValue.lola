@@ -1,20 +1,20 @@
 ##Import "std.lola"
 ##Find
- ##MethodDeclaration(_dec) = default;
+ ##MethodDeclaration(dec) = default;
  ##run {
-__ = _dec._type._name.name.strip()
+__ = dec.t.n.name.strip()
 if __ == 'void':
- _return = None
+ ret = None
 elif __ in ['int', 'short', 'byte']:
- _return = '0'
+ ret = '0'
 elif __ in ['double', 'float']:
- _return = '0.0'
+ ret = '0.0'
 elif __ in ['boolean']:
- _return = 'false'
+ ret = 'false'
 else:
- _return = 'null'
+ ret = 'null'
  }
- ##replace ##(_dec) {##('' if _return is None else 'return ' + _return + ';')}
+ ##replace ##(dec) {##('' if ret is None else 'return ' + ret + ';')}
 
 double f() = default;
 int g() = default;

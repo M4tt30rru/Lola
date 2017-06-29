@@ -1,6 +1,6 @@
 ##import "std.lola"
 ##Find
- ##MethodDeclaration(_dec) = throws ##Any(_value);
- ##replace ##(_dec) {throw new ##(_value);}
+ ##MethodDeclaration(dec) = throws ##Any(value);
+ ##replace ##(dec) {throw new ##(value);}
 
 void error(String message) = throws BadError(message);

@@ -1,7 +1,7 @@
 ##Import "std.lola"
 ##Find
- ##Type(_type) ##Identifier(_name)(##ArgumentDeclarationList(_l)) -> ##Any(_delegator);
- ##replace ##(_type) ##(_name) (##(_l)) {##("" if _type.name.strip() == "void" else "return") ##(_delegator)(##(",".join(a._name.name for a in _l._args)));}
+ ##Type(t) ##Identifier(n)(##ArgumentDeclarationList(l)) -> ##Any(delegator);
+ ##replace ##(t) ##(n) (##(l)) {##("" if t.name.strip() == "void" else "return") ##(delegator)(##(",".join(a.n.name for a in l.args)));}
 
 public Coffee makeCoffee(Milk milk, List<Bean> beans) -> wife.makeIt;
 public void takeTrash(Bag bag) -> husband.throwIt;

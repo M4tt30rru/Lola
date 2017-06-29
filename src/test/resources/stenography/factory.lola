@@ -1,6 +1,6 @@
 ##Import "std.lola"
 ##Find
- ##Type(_type) ##Identifier(_name)(##ArgumentDeclarationList(_l)) -> produce;
- ##replace ##(_type) ##(_name) (##(_l)) {return new ##(_type)(##(",".join(a._name.name for a in _l._args)));}
+ ##Type(t) ##Identifier(n)(##ArgumentDeclarationList(l)) -> produce;
+ ##replace ##(t) ##(n) (##(l)) {return new ##(t)(##(",".join(a.n.name for a in l.args)));}
 
 T<String> f(int x) -> produce;
